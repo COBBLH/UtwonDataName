@@ -1,0 +1,3497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Information Dashboard - Education Excellence Network</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1e40af;
+            --secondary-blue: #1e3a8a;
+            --accent-blue: #3b82f6;
+            --accent-yellow: #fbbf24;
+            --light-yellow: #fef3c7;
+            --light-blue: #eff6ff;
+            --text-dark: #0f172a;
+            --text-gray: #64748b;
+            --text-light: #94a3b8;
+            --white: #ffffff;
+            --light-gray: #f8fafc;
+            --neutral-100: #f1f5f9;
+            --neutral-200: #e2e8f0;
+            --success-green: #059669;
+            --warning-orange: #d97706;
+            --danger-red: #dc2626;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --gradient-primary: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            --gradient-secondary: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            --gradient-success: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            --gradient-warning: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+            --gradient-danger: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--light-gray);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Header Styles */
+        .nav-header {
+            background: var(--white);
+            border-bottom: 1px solid var(--neutral-200);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-logos {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-logo {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow);
+        }
+
+        .nav-logo:nth-child(2) {
+            background: var(--gradient-secondary);
+        }
+
+        .nav-site-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            letter-spacing: -0.01em;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .nav-menu a.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .admin-profile:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .admin-avatar {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .admin-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Navigation */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 0.25rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-btn span {
+            width: 24px;
+            height: 3px;
+            background: var(--text-dark);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border-top: 1px solid var(--neutral-200);
+            box-shadow: var(--shadow-lg);
+            padding: 1rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            animation: modalBackdrop 0.3s ease;
+        }
+
+        @keyframes modalBackdrop {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--white);
+            margin: 3% auto;
+            padding: 0;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 650px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 2rem 1.5rem 1.5rem;
+            border-radius: 24px 24px 0 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .school-logo {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--white);
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .modal-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .modal-body {
+            padding: 2rem 1.5rem;
+        }
+
+        /* About Us Modal Styles */
+        .about-content {
+            max-width: 100%;
+        }
+
+        .about-mission {
+            background: var(--light-blue);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .about-mission h3 {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .about-mission p {
+            color: var(--text-dark);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .about-values {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .value-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--neutral-200);
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .value-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.8rem;
+            margin: 0 auto 1rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .value-card h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .value-card p {
+            color: var(--text-gray);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .about-team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .team-member {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--neutral-100);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .team-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .team-member h5 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .team-member .role {
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Contact Us Modal Styles */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-card {
+            background: var(--light-blue);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .contact-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.8rem;
+            margin: 0 auto 1rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .contact-card h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card p {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .contact-form {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--neutral-200);
+        }
+
+        .contact-form h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            padding: 1rem;
+            border: 2px solid var(--neutral-200);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--white);
+            width: 100%;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .social-section {
+            background: var(--light-blue);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .social-section h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            color: var(--white);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .social-link:hover {
+            transform: translateY(-4px) scale(1.1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .social-link.facebook:hover { background: linear-gradient(135deg, #1877f2, #42a5f5); }
+        .social-link.twitter:hover { background: linear-gradient(135deg, #1da1f2, #42a5f5); }
+        .social-link.instagram:hover { background: linear-gradient(135deg, #e4405f, #fd1d1d, #fcb045); }
+        .social-link.linkedin:hover { background: linear-gradient(135deg, #0077b5, #0099d4); }
+
+        /* Layout */
+        .dashboard-layout {
+            display: flex;
+            max-width: 100%;
+            margin: 0;
+            gap: 0;
+            padding: 0;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 300px;
+            background: var(--white);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border-right: 1px solid var(--neutral-200);
+            height: calc(100vh - 80px);
+            position: sticky;
+            top: 80px;
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            color: var(--text-gray);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .sidebar-menu a:hover {
+            background: var(--light-blue);
+            color: var(--primary-blue);
+            transform: translateX(4px);
+        }
+
+        .sidebar-menu a.active {
+            background: var(--gradient-primary);
+            color: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .sidebar-menu a i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .logout-btn {
+            width: 100%;
+            background: var(--gradient-danger);
+            color: var(--white);
+            border: none;
+            padding: 1rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 3rem;
+            overflow-y: auto;
+            height: calc(100vh - 80px);
+        }
+
+        /* Dashboard Stats */
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--neutral-200);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .stat-card.schools::before {
+            background: var(--gradient-primary);
+        }
+
+        .stat-card.students::before {
+            background: var(--gradient-success);
+        }
+
+        .stat-card.faculty::before {
+            background: var(--gradient-warning);
+        }
+
+        .stat-card.revenue::before {
+            background: var(--gradient-secondary);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--white);
+        }
+
+        .stat-icon.schools {
+            background: var(--gradient-primary);
+        }
+
+        .stat-icon.students {
+            background: var(--gradient-success);
+        }
+
+        .stat-icon.faculty {
+            background: var(--gradient-warning);
+        }
+
+        .stat-icon.revenue {
+            background: var(--gradient-secondary);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .stat-change {
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .stat-change.positive {
+            color: var(--success-green);
+        }
+
+        .stat-change.negative {
+            color: var(--danger-red);
+        }
+
+        /* Section Cards */
+        .section-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--neutral-200);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title i {
+            color: var(--primary-blue);
+        }
+
+        /* Filters Side by Side Layout - ENHANCED TO 3 COLUMNS */
+        .filters-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* School Filter Section */
+        .school-filter-section {
+            background: var(--light-blue);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--neutral-200);
+        }
+
+        .school-filter-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .school-filter-dropdown {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--neutral-200);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: var(--white);
+            color: var(--text-dark);
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .school-filter-dropdown:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        /* Educational Attainment Filter Section - NEW */
+        .educational-filter-section {
+            background: var(--light-yellow);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--neutral-200);
+        }
+
+        .educational-filter-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .educational-filter-dropdown {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--neutral-200);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: var(--white);
+            color: var(--text-dark);
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .educational-filter-dropdown:focus {
+            outline: none;
+            border-color: var(--accent-yellow);
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+        }
+
+        /* Category Filter Section */
+        .filter-section {
+            background: var(--light-blue);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--neutral-200);
+        }
+
+        .filter-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .filter-btn {
+            background: var(--white);
+            color: var(--text-dark);
+            border: 2px solid var(--neutral-200);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .filter-btn.active {
+            background: var(--gradient-primary);
+            color: var(--white);
+            border-color: var(--primary-blue);
+            box-shadow: var(--shadow);
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .filter-btn.year-management {
+            background: var(--gradient-secondary);
+            color: var(--text-dark);
+        }
+
+        .filter-btn.year-management:hover {
+            background: var(--gradient-secondary);
+            transform: translateY(-2px);
+        }
+
+        /* Form Styles */
+        .add-school-form {
+            background: var(--light-blue);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--neutral-200);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-select, .form-textarea {
+            padding: 1rem;
+            border: 2px solid var(--neutral-200);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--neutral-200);
+            color: var(--text-dark);
+        }
+
+        .btn-secondary:hover {
+            background: var(--neutral-100);
+        }
+
+        .btn-danger {
+            background: var(--gradient-danger);
+            color: var(--white);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
+
+        /* Data Tables */
+        .data-table-container {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--neutral-200);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .data-table th {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .data-table th:first-child {
+            min-width: 300px;
+            max-width: 400px;
+        }
+
+        .data-table th:not(:first-child) {
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--neutral-200);
+            transition: all 0.3s ease;
+        }
+
+        .data-table tr:hover {
+            background: var(--light-blue);
+        }
+
+        .data-table tr:nth-child(even) {
+            background: var(--neutral-100);
+        }
+
+        .data-table tr:nth-child(even):hover {
+            background: var(--light-blue);
+        }
+
+        .course-name {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .editable-cell {
+            text-align: center;
+            position: relative;
+        }
+
+        .editable-input {
+            border: none;
+            background: transparent;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            width: 80px;
+            padding: 0.25rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .editable-input:focus {
+            outline: none;
+            background: var(--white);
+            box-shadow: 0 0 0 2px var(--accent-blue);
+        }
+
+        .editable-input:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .password-display {
+            font-family: 'Courier New', monospace;
+            background: var(--neutral-100);
+            padding: 0.5rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            border: 1px solid var(--neutral-200);
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: var(--gradient-success);
+            color: var(--white);
+        }
+
+        .status-inactive {
+            background: var(--gradient-danger);
+            color: var(--white);
+        }
+
+        .status-pending {
+            background: var(--gradient-warning);
+            color: var(--white);
+        }
+
+        /* Activity Log */
+        .activity-log {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid var(--neutral-200);
+            transition: all 0.3s ease;
+        }
+
+        .activity-item:hover {
+            background: var(--light-blue);
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--white);
+        }
+
+        .activity-icon.add {
+            background: var(--gradient-success);
+        }
+
+        .activity-icon.edit {
+            background: var(--gradient-warning);
+        }
+
+        .activity-icon.delete {
+            background: var(--gradient-danger);
+        }
+
+        .activity-icon.login {
+            background: var(--gradient-primary);
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-description {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .activity-time {
+            color: var(--text-light);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .year-management-section {
+            background: var(--light-yellow);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--neutral-200);
+            animation: fadeInUp 0.4s ease;
+        }
+
+        .year-management-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .add-year-form {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .year-input {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--neutral-200);
+            border-radius: 8px;
+            font-size: 1rem;
+            min-width: 200px;
+            transition: all 0.3s ease;
+        }
+
+        .year-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .existing-years h4 {
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .years-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .year-item {
+            background: var(--white);
+            border: 2px solid var(--neutral-200);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .year-item:hover {
+            border-color: var(--primary-blue);
+            box-shadow: var(--shadow);
+        }
+
+        .year-name {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .delete-year-btn {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            color: var(--white);
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .delete-year-btn:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .action-btn {
+            background: var(--gradient-primary);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .action-btn.add {
+            background: var(--gradient-secondary);
+        }
+
+        .action-btn.delete {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+        }
+
+        .action-btn.save {
+            background: linear-gradient(135deg, #059669, #10b981);
+        }
+
+        .course-row {
+            transition: all 0.3s ease;
+        }
+
+        .course-row.highlight {
+            background: var(--light-yellow) !important;
+            transform: scale(1.01);
+        }
+
+        .delete-checkbox {
+            margin-right: 0.5rem;
+        }
+
+        .table-wrapper {
+            max-height: 600px;
+            overflow-y: auto;
+            border-radius: 16px;
+        }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-card {
+            background: var(--gradient-accent);
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .summary-card h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-card p {
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .login-btn {
+            background: var(--gradient-primary);
+            color: var(--white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .filters-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            
+            .educational-filter-section {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                position: static;
+                height: auto;
+            }
+
+            .main-content {
+                height: auto;
+                padding: 2rem;
+            }
+
+            .dashboard-stats {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .about-values {
+                grid-template-columns: 1fr;
+            }
+
+            .about-team {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .main-content {
+                padding: 1.5rem;
+            }
+
+            .section-card {
+                padding: 1.5rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                justify-content: stretch;
+            }
+
+            .btn {
+                flex: 1;
+                justify-content: center;
+            }
+
+            .dashboard-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .sidebar {
+                padding: 1.5rem;
+            }
+
+            .data-table {
+                font-size: 0.8rem;
+            }
+
+            .data-table th, .data-table td {
+                padding: 0.75rem 0.5rem;
+            }
+
+            .data-table th:first-child {
+                min-width: 200px;
+            }
+
+            .editable-input {
+                width: 60px;
+                font-size: 0.8rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+                border-radius: 20px;
+                max-width: 600px;
+            }
+
+            .modal-header {
+                padding: 1.5rem 1rem 1rem;
+                border-radius: 20px 20px 0 0;
+            }
+
+            .modal-body {
+                padding: 1.5rem 1rem;
+            }
+
+            .value-card, .contact-card, .team-member {
+                padding: 1.5rem;
+            }
+
+            .value-icon, .contact-icon {
+                width: 56px;
+                height: 56px;
+                font-size: 1.5rem;
+            }
+
+            .team-avatar {
+                width: 64px;
+                height: 64px;
+                font-size: 1.5rem;
+            }
+
+            .filters-container {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-buttons {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-profile {
+                padding: 0.5rem 1rem;
+            }
+
+            .admin-name {
+                display: none;
+            }
+
+            .summary-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .add-year-form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .year-input {
+                min-width: auto;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .action-btn {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+    <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="nav-header">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="nav-logos">
+                    <div class="nav-logo">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="nav-logo">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                </div>
+                <div class="nav-site-name">Education Excellence Network</div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="#schools">Schools</a></li>
+                <li><a onclick="openAboutModal()">About Us</a></li>
+                <li><a onclick="openContactModal()">Contact Us</a></li>
+            </ul>
+            
+            <div class="admin-profile">
+                <div class="admin-avatar">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="admin-name">School Admin</div>
+            </div>
+            
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
+                <li><a href="#schools" onclick="closeMobileMenu()">Schools</a></li>
+                <li><a onclick="openAboutModal(); closeMobileMenu()">About Us</a></li>
+                <li><a onclick="openContactModal(); closeMobileMenu()">Contact Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- About Us Modal -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal('aboutModal')">&times;</span>
+                <div class="school-logo">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h2>About Education Excellence Network</h2>
+                <p class="modal-subtitle">Transforming Lives Through Quality Education</p>
+            </div>
+            <div class="modal-body">
+                <div class="about-content">
+                    <div class="about-mission">
+                        <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+                        <p>At Education Excellence Network, we are committed to providing world-class educational opportunities that empower students to reach their full potential. Our mission is to foster academic excellence, critical thinking, and character development through innovative teaching methods and comprehensive learning experiences. We believe that every student deserves access to quality education that prepares them for success in an ever-evolving global landscape.</p>
+                    </div>
+
+                    <div class="about-values">
+                        <div class="value-card">
+                            <div class="value-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h4>Excellence</h4>
+                            <p>We strive for the highest standards in education, continuously improving our programs and services to meet the evolving needs of our students.</p>
+                        </div>
+                        <div class="value-card">
+                            <div class="value-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h4>Innovation</h4>
+                            <p>We embrace cutting-edge technology and progressive teaching methods to create engaging and effective learning environments.</p>
+                        </div>
+                        <div class="value-card">
+                            <div class="value-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h4>Integrity</h4>
+                            <p>We operate with honesty, transparency, and ethical principles, building trust with students, parents, and communities.</p>
+                        </div>
+                        <div class="value-card">
+                            <div class="value-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <h4>Global Perspective</h4>
+                            <p>We prepare students to become global citizens who can thrive in diverse, multicultural environments.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <h3 style="margin-bottom: 1.5rem; color: var(--primary-blue);"><i class="fas fa-users-cog"></i> Leadership Team</h3>
+                        <div class="about-team">
+                            <div class="team-member">
+                                <div class="team-avatar">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                                <h5>Dr. Sarah Mitchell</h5>
+                                <p class="role">Chief Executive Officer</p>
+                            </div>
+                            <div class="team-member">
+                                <div class="team-avatar">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                </div>
+                                <h5>Prof. Michael Chen</h5>
+                                <p class="role">Academic Director</p>
+                            </div>
+                            <div class="team-member">
+                                <div class="team-avatar">
+                                    <i class="fas fa-laptop"></i>
+                                </div>
+                                <h5>Dr. Emily Rodriguez</h5>
+                                <p class="role">Technology Director</p>
+                            </div>
+                            <div class="team-member">
+                                <div class="team-avatar">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                                <h5>James Thompson</h5>
+                                <p class="role">Student Affairs Director</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary-cards">
+                        <div class="summary-card">
+                            <h3>25+</h3>
+                            <p>Years of Excellence</p>
+                        </div>
+                        <div class="summary-card">
+                            <h3>98%</h3>
+                            <p>Student Satisfaction</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Us Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal('contactModal')">&times;</span>
+                <div class="school-logo">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h2>Contact Us</h2>
+                <p class="modal-subtitle">Get in Touch - We're Here to Help</p>
+            </div>
+            <div class="modal-body">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h4>Call Us</h4>
+                        <p>Main Office: +1 (555) 123-4567<br>
+                        Admissions: +1 (555) 123-4568<br>
+                        Emergency: +1 (555) 123-4569</p>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h4>Email Us</h4>
+                        <p>General: info@education-excellence.edu<br>
+                        Admissions: admissions@education-excellence.edu<br>
+                        Support: support@education-excellence.edu</p>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h4>Visit Us</h4>
+                        <p>123 Education Boulevard<br>
+                        Academic City, NY 10001<br>
+                        United States</p>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h4>Office Hours</h4>
+                        <p>Monday - Friday: 8:00 AM - 6:00 PM<br>
+                        Saturday: 9:00 AM - 3:00 PM<br>
+                        Sunday: Closed</p>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h3><i class="fas fa-paper-plane"></i> Send Us a Message</h3>
+                    <form onsubmit="handleContactSubmit(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" id="firstName" class="form-input" placeholder="Your first name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" id="lastName" class="form-input" placeholder="Your last name" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail" class="form-label">Email Address</label>
+                            <input type="email" id="contactEmail" class="form-input" placeholder="your.email@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactPhone" class="form-label">Phone Number</label>
+                            <input type="tel" id="contactPhone" class="form-input" placeholder="+1 (555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" id="subject" class="form-input" placeholder="What is this regarding?" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="message" class="form-input form-textarea" placeholder="Please tell us how we can help you..." required></textarea>
+                        </div>
+                        <button type="submit" class="login-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+
+                <div class="social-section">
+                    <h3><i class="fas fa-share-alt"></i> Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link linkedin"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2 class="sidebar-title">
+                <i class="fas fa-school"></i>
+                School Dashboard
+            </h2>
+            
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="#" class="active" onclick="showSection('dashboard')">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showSection('add-school')">
+                        <i class="fas fa-plus-circle"></i>
+                        Add Course
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="#" onclick="showSection('activity-log')">
+                        <i class="fas fa-history"></i>
+                        Activity Log
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showSection('settings')">
+                        <i class="fas fa-cog"></i>
+                        Settings
+                    </a>
+                </li>
+            </ul>
+            
+            <button class="logout-btn" onclick="handleLogout()">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="content-section active">
+
+
+                <div class="section-card">
+                    <h2 class="section-title">
+                        <i class="fas fa-chart-line"></i>
+                        School Information Overview
+                    </h2>
+                    <p>Welcome to your School Information Dashboard. Manage course data, track student enrollment, and monitor academic performance from this comprehensive control panel.</p>
+                </div>
+            </div>
+
+            <!-- Add School Section -->
+            <div id="add-school" class="content-section">
+                <div class="section-card">
+                    <h2 class="section-title">
+                        <i class="fas fa-plus-circle"></i>
+                        Add New Course
+                    </h2>
+
+                    <div class="add-school-form">
+                        <form id="addSchoolForm">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Course Name</label>
+                                    <input type="text" class="form-input" id="schoolName" placeholder="Enter course name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Course Type</label>
+                                    <select class="form-select" id="schoolType" required>
+                                        <option value="">Select course type</option>
+                                        <option value="bachelor">Bachelor's Degree</option>
+                                        <option value="master">Master's Degree</option>
+                                        <option value="doctorate">Doctorate Degree</option>
+                                        <option value="certificate">Certificate Program</option>
+                                        <option value="diploma">Diploma Program</option>
+                                        <option value="tesda">TESDA Course</option>
+                                        <option value="vocational">Vocational Course</option>
+                                        <option value="associate">Associate Degree</option>
+                                        <option value="professional">Professional Course</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Department</label>
+                                    <input type="text" class="form-input" id="schoolLocation" placeholder="Enter department" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Course Head</label>
+                                    <input type="text" class="form-input" id="adminName" placeholder="Enter course head name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Duration (Years)</label>
+                                    <input type="number" class="form-input" id="schoolEmail" placeholder="Enter course duration" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Course Code</label>
+                                    <input type="text" class="form-input" id="schoolPhone" placeholder="Enter course code" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Course Description</label>
+                                <textarea class="form-textarea" id="schoolDescription" placeholder="Enter a brief description of the course..." required></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" onclick="clearForm()">
+                                    <i class="fas fa-times"></i>
+                                    Clear
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-plus"></i>
+                                    Add Course
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="section-card" style="margin-top: 2rem;">
+                    <h2 class="section-title">
+                        <i class="fas fa-list"></i>
+                        List of Course
+                    </h2>
+                    <div class="data-table-container">
+                        <table class="data-table" id="courseListTable">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center;min-width:40px;">#</th>
+                                    <th>Course Name</th>
+                                    <th>Course Type</th>
+                                    <th>Department</th>
+                                    <th>Course Head</th>
+                                    <th style="text-align:center;">Duration</th>
+                                    <th style="text-align:center;">Code</th>
+                                    <th style="text-align:center;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="courseListTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="courseListPagination" style="display:flex;justify-content:center;gap:0.5rem;margin-top:1rem;flex-wrap:wrap;"></div>
+                </div>
+            </div>
+
+            <!-- School Accounts Section -->
+            <div id="school-accounts" class="content-section">
+                <div class="section-card">
+                    <h2 class="section-title">
+                        <i class="fas fa-users-cog"></i>
+                        Course Management
+                    </h2>
+
+                    <div class="data-table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Course Name</th>
+                                    <th>Course Head</th>
+                                    <th>Department</th>
+                                    <th>Duration</th>
+                                    <th>Course Code</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="accountsTableBody">
+                                <!-- Course data will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- School Data Section -->
+            <div id="school-data" class="content-section active">
+                <div class="section-card">
+                    <h2 class="section-title">
+                        <i class="fas fa-chart-bar"></i>
+                        Student Data Analytics
+                    </h2>
+
+                    <!-- Enhanced Filters with 3 Containers -->
+                    <div class="filters-container">
+                        <!-- Educational Attainment Filter Section - NEW -->
+                        <div class="educational-filter-section">
+                            <h3 class="educational-filter-title">
+                                <i class="fas fa-graduation-cap"></i>
+                                Filter by Educational Attainment
+                            </h3>
+                            <select class="educational-filter-dropdown" id="educationalFilter" onchange="filterByEducationalAttainment()">
+                                <option value="all">All Levels</option>
+                                <option value="bachelor">BACHELOR DEGREE</option>
+                                <option value="twoyear">2-YEAR COURSE</option>
+                                <option value="tesda">TESDA</option>
+                                <option value="graduate">GRADUATE COURSE</option>
+                            </select>
+                        </div>
+
+                        <!-- Category Filter Section -->
+                        <div class="school-filter-section">
+                            <h3 class="school-filter-title">
+                                <i class="fas fa-filter"></i>
+                                Filter by Category
+                            </h3>
+                            <select class="school-filter-dropdown" id="categoryFilter" onchange="filterByCategory()">
+                                <option value="outside">Outside Bataan</option>
+                                <option value="inside">Inside Bataan</option>
+                                <option value="graduates">Graduates</option>
+                                <option value="passers">Number of Board Passer</option>
+                            </select>
+                            <button class="filter-btn year-management" onclick="showYearManagement()" style="margin-top: 1rem; width: 100%;">
+                                <i class="fas fa-calendar-plus"></i> Manage Years
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="year-management-section" id="yearManagementSection" style="display: none;">
+                        <h3 class="filter-title">
+                            <i class="fas fa-calendar-alt"></i>
+                            Year Management
+                        </h3>
+                        <div class="year-management-controls">
+                            <div class="add-year-form">
+                                <input type="text" id="newYearInput" placeholder="Enter new year (e.g., 2025-2026)" class="year-input">
+                                <button class="action-btn add" onclick="addNewYear()">
+                                    <i class="fas fa-plus"></i>
+                                    Add Year
+                                </button>
+                            </div>
+                            <div class="existing-years">
+                                <h4>Existing Years:</h4>
+                                <div class="years-list" id="yearsList">
+                                    <!-- Years will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary-cards" id="summaryCards">
+                        <div class="summary-card">
+                            <h3 id="totalEnrollees">0</h3>
+                            <p>Total Enrollees</p>
+                        </div>
+                        <div class="summary-card">
+                            <h3 id="totalOutside">0</h3>
+                            <p>Outside Bataan</p>
+                        </div>
+                        <div class="summary-card">
+                            <h3 id="totalInside">0</h3>
+                            <p>Inside Bataan</p>
+                        </div>
+                        <div class="summary-card">
+                            <h3 id="totalGraduates">0</h3>
+                            <p>Graduates</p>
+                        </div>
+                        <div class="summary-card">
+                            <h3 id="totalPassers">0</h3>
+                            <p>Board Passers</p>
+                        </div>
+                    </div>
+
+                    <div class="data-table-container">
+                        <div class="table-wrapper">
+                            <table class="data-table" id="dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <input type="checkbox" id="selectAll" onchange="toggleSelectAll()">
+                                            Course Name
+                                        </th>
+                                        <th id="year-header-0">2020-2021</th>
+                                        <th id="year-header-1">2021-2022</th>
+                                        <th id="year-header-2">2022-2023</th>
+                                        <th id="year-header-3">2023-2024</th>
+                                        <th id="year-header-4">2024-2025</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody">
+                                    <!-- Data will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="action-btn add" onclick="addNewCourse()">
+                            <i class="fas fa-plus"></i>
+                            Add Course
+                        </button>
+                        <button class="action-btn delete" onclick="deleteSelectedCourses()">
+                            <i class="fas fa-trash"></i>
+                            Delete Selected
+                        </button>
+                        <button class="action-btn save" onclick="saveData()">
+                            <i class="fas fa-save"></i>
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Log Section -->
+            <div id="activity-log" class="content-section">
+                <div class="section-card">
+                    <h2 class="section-title">
+                        <i class="fas fa-history"></i>
+                        Activity Log
+                    </h2>
+
+                    <div class="activity-log" id="activityLog">
+                        <!-- Activity items will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div id="settings" class="content-section">
+                <div class="section-card">
+                    <h2 class="section-title">
+                        <i class="fas fa-cog"></i>
+                        School Settings
+                    </h2>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">School Name</label>
+                            <input type="text" class="form-input" value="Education Excellence Network" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Admin Email</label>
+                            <input type="email" class="form-input" value="admin@education-excellence.edu">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Academic Calendar</label>
+                            <select class="form-select">
+                                <option value="semester">Semester System</option>
+                                <option value="quarterly">Quarterly System</option>
+                                <option value="trimester">Trimester System</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Data Backup</label>
+                            <select class="form-select">
+                                <option value="daily">Daily Backup</option>
+                                <option value="weekly">Weekly Backup</option>
+                                <option value="monthly">Monthly Backup</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Save Settings
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // About Modal Functions
+        function openAboutModal() {
+            const modal = document.getElementById('aboutModal');
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Contact Modal Functions
+        function openContactModal() {
+            const modal = document.getElementById('contactModal');
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close Modal Function
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Contact Form Handler
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('contactEmail').value;
+            const phone = document.getElementById('contactPhone').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            if (firstName && lastName && email && subject && message) {
+                alert(`Thank you, ${firstName} ${lastName}! Your message has been sent successfully. We will get back to you soon.`);
+                closeModal('contactModal');
+                // Clear form
+                document.getElementById('firstName').value = '';
+                document.getElementById('lastName').value = '';
+                document.getElementById('contactEmail').value = '';
+                document.getElementById('contactPhone').value = '';
+                document.getElementById('subject').value = '';
+                document.getElementById('message').value = '';
+            }
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Sample data for courses
+        let courses = [
+            {
+                id: 1,
+                name: 'Bachelor of Science in Architecture',
+                type: 'Bachelor\'s Degree',
+                department: 'Engineering',
+                head: 'Dr. Sarah Williams',
+                duration: '5',
+                code: 'BS ARCH',
+                status: 'active'
+            },
+            {
+                id: 2,
+                name: 'Bachelor of Science in Civil Engineering',
+                type: 'Bachelor\'s Degree',
+                department: 'Engineering',
+                head: 'Engr. James Chen',
+                duration: '5',
+                code: 'BSCE',
+                status: 'active'
+            },
+            {
+                id: 3,
+                name: 'Bachelor of Science in Computer Science',
+                type: 'Bachelor\'s Degree',
+                department: 'Computer Studies',
+                head: 'Dr. Emily Thompson',
+                duration: '4',
+                code: 'BSCS',
+                status: 'active'
+            },
+            {
+                id: 4,
+                name: 'Bachelor of Science in Hospitality Management',
+                type: 'Bachelor\'s Degree',
+                department: 'Tourism and Hospitality',
+                head: 'Ms. Isabella Martinez',
+                duration: '4',
+                code: 'BSHM',
+                status: 'pending'
+            }
+        ];
+
+        // Activity log data
+        let activities = [
+            {
+                type: 'add',
+                title: 'New Course Added',
+                description: 'Bachelor of Science in Hospitality Management was added to the system',
+                time: '2 hours ago'
+            },
+            {
+                type: 'edit',
+                title: 'Course Information Updated',
+                description: 'Bachelor of Science in Computer Science details were modified',
+                time: '5 hours ago'
+            },
+            {
+                type: 'login',
+                title: 'Admin Login',
+                description: 'School Admin logged into the system',
+                time: '1 day ago'
+            },
+            {
+                type: 'delete',
+                title: 'Course Removed',
+                description: 'Old Course was removed from the system',
+                time: '2 days ago'
+            },
+            {
+                type: 'add',
+                title: 'New Course Added',
+                description: 'Bachelor of Science in Civil Engineering was added to the system',
+                time: '3 days ago'
+            }
+        ];
+
+        // School Data
+        let schoolsData = {
+            all: {
+                enrollees: {
+                    'Bachelor of Science in Architecture': [204, 225, 253, 294, 0],
+                    'Bachelor of Science in Civil Engineering': [87, 34, 114, 252, 0],
+                    'BSCE major in Construction Engineering and Management': [126, 183, 160, 106, 0],
+                    'BSCE major in Structural Engineering': [117, 169, 137, 89, 0],
+                    'Bachelor of Science in Computer Engineering': [0, 0, 0, 16, 0],
+                    'Bachelor of Science in Electrical Engineering': [421, 463, 456, 464, 0],
+                    'Bachelor of Science in Electronics Engineering': [152, 177, 161, 166, 0],
+                    'Bachelor of Science in Industrial Engineering': [155, 199, 199, 200, 0],
+                    'Bachelor of Science in Mechanical Engineering': [546, 529, 492, 514, 0],
+                    'Bachelor of Science in Railway Engineering': [0, 0, 0, 20, 0],
+                    'Bachelor of Arts in Communication': [0, 0, 70, 110, 0],
+                    'BACOMM major in Creative and Performing Arts': [43, 47, 31, 17, 0],
+                    'BACOMM major in New Media Track': [33, 50, 42, 26, 0],
+                    'Bachelor of Science in Developmental Communication': [0, 0, 0, 1, 0],
+                    'Bachelor of Science in Hospitality Management': [107, 145, 173, 289, 0],
+                    'Bachelor of Science in Hotel and Restaurant Management': [37, 1, 0, 0, 0],
+                    'Bachelor of Science in Tourism Management': [88, 97, 106, 132, 0],
+                    'Bachelor of Science in Computer Science': [0, 0, 86, 222, 0],
+                    'BSCS major in Network and Data Communication': [82, 84, 57, 43, 0]
+                },
+                outside: {
+                    'Bachelor of Science in Architecture': [260, 307, 364, 441, 0],
+                    'Bachelor of Science in Civil Engineering': [8, 18, 120, 238, 0],
+                    'BSCE major in Construction Engineering and Management': [147, 202, 180, 128, 0],
+                    'BSCE major in Structural Engineering': [144, 189, 149, 98, 0],
+                    'Bachelor of Science in Computer Engineering': [0, 0, 0, 20, 0],
+                    'Bachelor of Science in Electrical Engineering': [89, 101, 108, 114, 0],
+                    'Bachelor of Science in Electronics Engineering': [121, 136, 117, 106, 0],
+                    'Bachelor of Science in Industrial Engineering': [138, 174, 174, 165, 0],
+                    'Bachelor of Science in Mechanical Engineering': [153, 176, 129, 119, 0],
+                    'Bachelor of Science in Railway Engineering': [0, 0, 0, 18, 0],
+                    'Bachelor of Arts in Communication': [0, 0, 82, 124, 0],
+                    'BACOMM major in Creative and Performing Arts': [80, 108, 73, 41, 0],
+                    'BACOMM major in New Media Track': [67, 95, 82, 55, 0],
+                    'Bachelor of Science in Developmental Communication': [0, 0, 0, 10, 0],
+                    'Bachelor of Science in Hospitality Management': [223, 332, 327, 441, 0],
+                    'Bachelor of Science in Hotel and Restaurant Management': [43, 1, 0, 0, 0],
+                    'Bachelor of Science in Tourism Management': [307, 423, 457, 590, 0],
+                    'Bachelor of Science in Computer Science': [0, 0, 30, 78, 0],
+                    'BSCS major in Network and Data Communication': [68, 77, 57, 39, 0]
+                },
+                inside: {
+                    'Bachelor of Science in Architecture': [0, 0, 0, 0, 0],
+                    'Bachelor of Science in Civil Engineering': [0, 0, 0, 0, 0],
+                    'BSCE major in Construction Engineering and Management': [0, 0, 0, 0, 0],
+                    'BSCE major in Structural Engineering': [0, 0, 0, 0, 0],
+                    'Bachelor of Science in Computer Engineering': [0, 0, 0, 0, 0],
+                    'Bachelor of Science in Electrical Engineering': [0, 0, 0, 0, 0],
+                    'Bachelor of Science in Electronics Engineering': [0, 0, 0, 0, 0],
+                    'Bachelor of Science in Industrial Engineering': [0, 0, 0, 0, 0],
+                    'Bachelor of Science in Mechanical Engineering': [0, 0, 0, 0, 0],
+                    'Bachelor of Science in Railway Engineering': [0, 0, 0, 0, 0],
+                    'Bachelor of Arts in Communication': [0, 0, 0, 0, 0],
+                    'BACOMM major in Creative and Performing Arts': [0, 0, 0, 0, 0],
+                    'BACOMM major in New Media Track': [0, 0, 0, 0, 0],
+                    'Bachelor of Science in Developmental Communication': [0, 0, 0, 0, 0],
+                    'Bachelor of Science in Hospitality Management': [0, 0, 0, 0, 0],
+                    'Bachelor of Science in Hotel and Restaurant Management': [0, 0, 0, 0, 0],
+                    'Bachelor of Science in Tourism Management': [0, 0, 0, 0, 0],
+                    'Bachelor of Science in Computer Science': [0, 0, 0, 0, 0],
+                    'BSCS major in Network and Data Communication': [0, 0, 0, 0, 0]
+                },
+                graduates: {
+                    'Bachelor of Science in Architecture': [45, 52, 63, 78, 0],
+                    'Bachelor of Science in Civil Engineering': [18, 22, 28, 45, 0],
+                    'BSCE major in Construction Engineering and Management': [28, 35, 42, 38, 0],
+                    'BSCE major in Structural Engineering': [25, 34, 38, 32, 0],
+                    'Bachelor of Science in Computer Engineering': [0, 0, 0, 5, 0],
+                    'Bachelor of Science in Electrical Engineering': [95, 108, 115, 125, 0],
+                    'Bachelor of Science in Electronics Engineering': [34, 41, 45, 48, 0],
+                    'Bachelor of Science in Industrial Engineering': [38, 48, 52, 55, 0],
+                    'Bachelor of Science in Mechanical Engineering': [125, 135, 142, 156, 0],
+                    'Bachelor of Science in Railway Engineering': [0, 0, 0, 8, 0],
+                    'Bachelor of Arts in Communication': [0, 0, 18, 32, 0],
+                    'BACOMM major in Creative and Performing Arts': [12, 15, 12, 8, 0],
+                    'BACOMM major in New Media Track': [8, 12, 15, 12, 0],
+                    'Bachelor of Science in Developmental Communication': [0, 0, 0, 1, 0],
+                    'Bachelor of Science in Hospitality Management': [25, 34, 42, 68, 0],
+                    'Bachelor of Science in Hotel and Restaurant Management': [8, 1, 0, 0, 0],
+                    'Bachelor of Science in Tourism Management': [22, 28, 32, 38, 0],
+                    'Bachelor of Science in Computer Science': [0, 0, 22, 58, 0],
+                    'BSCS major in Network and Data Communication': [18, 22, 18, 15, 0]
+                },
+                passers: {
+                    'Bachelor of Science in Architecture': [35, 41, 50, 62, 0],
+                    'Bachelor of Science in Civil Engineering': [14, 18, 22, 36, 0],
+                    'BSCE major in Construction Engineering and Management': [22, 28, 34, 30, 0],
+                    'BSCE major in Structural Engineering': [20, 27, 30, 26, 0],
+                    'Bachelor of Science in Computer Engineering': [0, 0, 0, 4, 0],
+                    'Bachelor of Science in Electrical Engineering': [75, 86, 92, 100, 0],
+                    'Bachelor of Science in Electronics Engineering': [27, 33, 36, 38, 0],
+                    'Bachelor of Science in Industrial Engineering': [30, 38, 42, 44, 0],
+                    'Bachelor of Science in Mechanical Engineering': [98, 108, 114, 125, 0],
+                    'Bachelor of Science in Railway Engineering': [0, 0, 0, 6, 0],
+                    'Bachelor of Arts in Communication': [0, 0, 0, 0, 0],
+                    'BACOMM major in Creative and Performing Arts': [0, 0, 0, 0, 0],
+                    'BACOMM major in New Media Track': [0, 0, 0, 0, 0],
+                    'Bachelor of Science in Developmental Communication': [0, 0, 0, 0, 0],
+                    'Bachelor of Science in Hospitality Management': [18, 25, 32, 52, 0],
+                    'Bachelor of Science in Hotel and Restaurant Management': [6, 1, 0, 0, 0],
+                    'Bachelor of Science in Tourism Management': [16, 22, 26, 30, 0],
+                    'Bachelor of Science in Computer Science': [0, 0, 18, 46, 0],
+                    'BSCS major in Network and Data Communication': [14, 18, 14, 12, 0]
+                }
+            },
+            greenwood: {
+                enrollees: {
+                    'Business Administration': [89, 95, 103, 120, 0],
+                    'Computer Science': [67, 72, 85, 98, 0],
+                    'Engineering Technology': [45, 52, 58, 64, 0],
+                    'Liberal Arts': [78, 82, 89, 95, 0]
+                },
+                outside: {
+                    'Business Administration': [56, 62, 68, 78, 0],
+                    'Computer Science': [42, 48, 55, 63, 0],
+                    'Engineering Technology': [28, 34, 38, 42, 0],
+                    'Liberal Arts': [51, 56, 62, 68, 0]
+                },
+                inside: {
+                    'Business Administration': [33, 33, 35, 42, 0],
+                    'Computer Science': [25, 24, 30, 35, 0],
+                    'Engineering Technology': [17, 18, 20, 22, 0],
+                    'Liberal Arts': [27, 26, 27, 27, 0]
+                },
+                graduates: {
+                    'Business Administration': [18, 22, 26, 32, 0],
+                    'Computer Science': [15, 18, 22, 28, 0],
+                    'Engineering Technology': [12, 15, 18, 22, 0],
+                    'Liberal Arts': [16, 19, 23, 26, 0]
+                },
+                passers: {
+                    'Business Administration': [14, 18, 21, 26, 0],
+                    'Computer Science': [12, 15, 18, 23, 0],
+                    'Engineering Technology': [10, 12, 15, 18, 0],
+                    'Liberal Arts': [0, 0, 0, 0, 0]
+                }
+            },
+            // Add similar data for other schools
+            riverside: {
+                enrollees: {
+                    'International Business': [78, 85, 92, 105, 0],
+                    'Global Studies': [56, 62, 68, 74, 0],
+                    'Modern Languages': [89, 95, 102, 118, 0]
+                },
+                outside: {
+                    'International Business': [52, 58, 65, 72, 0],
+                    'Global Studies': [38, 42, 46, 51, 0],
+                    'Modern Languages': [61, 67, 73, 81, 0]
+                },
+                inside: {
+                    'International Business': [26, 27, 27, 33, 0],
+                    'Global Studies': [18, 20, 22, 23, 0],
+                    'Modern Languages': [28, 28, 29, 37, 0]
+                },
+                graduates: {
+                    'International Business': [15, 18, 22, 26, 0],
+                    'Global Studies': [12, 14, 16, 18, 0],
+                    'Modern Languages': [18, 21, 24, 28, 0]
+                },
+                passers: {
+                    'International Business': [12, 15, 18, 21, 0],
+                    'Global Studies': [0, 0, 0, 0, 0],
+                    'Modern Languages': [0, 0, 0, 0, 0]
+                }
+            },
+            stem: {
+                enrollees: {
+                    'Computer Engineering': [95, 108, 125, 142, 0],
+                    'Robotics': [67, 75, 85, 98, 0],
+                    'Data Science': [89, 98, 112, 128, 0],
+                    'Biotechnology': [78, 82, 89, 95, 0]
+                },
+                outside: {
+                    'Computer Engineering': [68, 78, 89, 102, 0],
+                    'Robotics': [45, 52, 59, 68, 0],
+                    'Data Science': [62, 69, 78, 89, 0],
+                    'Biotechnology': [52, 56, 62, 67, 0]
+                },
+                inside: {
+                    'Computer Engineering': [27, 30, 36, 40, 0],
+                    'Robotics': [22, 23, 26, 30, 0],
+                    'Data Science': [27, 29, 34, 39, 0],
+                    'Biotechnology': [26, 26, 27, 28, 0]
+                },
+                graduates: {
+                    'Computer Engineering': [22, 26, 32, 38, 0],
+                    'Robotics': [16, 19, 22, 26, 0],
+                    'Data Science': [19, 23, 28, 34, 0],
+                    'Biotechnology': [18, 20, 23, 26, 0]
+                },
+                passers: {
+                    'Computer Engineering': [18, 22, 26, 31, 0],
+                    'Robotics': [13, 16, 18, 22, 0],
+                    'Data Science': [15, 19, 23, 28, 0],
+                    'Biotechnology': [14, 16, 19, 22, 0]
+                }
+            },
+            creative: {
+                enrollees: {
+                    'Fine Arts': [45, 52, 58, 65, 0],
+                    'Music Performance': [67, 72, 78, 85, 0],
+                    'Digital Media': [89, 95, 102, 118, 0],
+                    'Theater Arts': [34, 38, 42, 48, 0]
+                },
+                outside: {
+                    'Fine Arts': [28, 33, 37, 42, 0],
+                    'Music Performance': [42, 46, 51, 56, 0],
+                    'Digital Media': [58, 63, 68, 76, 0],
+                    'Theater Arts': [22, 25, 28, 32, 0]
+                },
+                inside: {
+                    'Fine Arts': [17, 19, 21, 23, 0],
+                    'Music Performance': [25, 26, 27, 29, 0],
+                    'Digital Media': [31, 32, 34, 42, 0],
+                    'Theater Arts': [12, 13, 14, 16, 0]
+                },
+                graduates: {
+                    'Fine Arts': [9, 12, 15, 18, 0],
+                    'Music Performance': [14, 17, 20, 23, 0],
+                    'Digital Media': [18, 21, 25, 29, 0],
+                    'Theater Arts': [7, 9, 11, 13, 0]
+                },
+                passers: {
+                    'Fine Arts': [0, 0, 0, 0, 0],
+                    'Music Performance': [0, 0, 0, 0, 0],
+                    'Digital Media': [0, 0, 0, 0, 0],
+                    'Theater Arts': [0, 0, 0, 0, 0]
+                }
+            }
+        };
+
+        let academicYears = ['2020-2021', '2021-2022', '2022-2023', '2023-2024', '2024-2025'];
+        let currentFilter = 'outside';
+        let currentSchool = 'all';
+        let currentEducationalLevel = 'all'; // New variable for educational attainment
+
+        // Navigation functionality
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            mobileMenu.classList.toggle('active');
+            menuBtn.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            mobileMenu.classList.remove('active');
+            menuBtn.classList.remove('active');
+        }
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Dashboard and Student Data are merged — show both together
+            if (sectionId === 'dashboard') {
+                document.getElementById('school-data').classList.add('active');
+            }
+
+            // Update sidebar menu
+            document.querySelectorAll('.sidebar-menu a').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                alert('Logging out...');
+                // Redirect to login page or main site
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Course management functions
+        function addCourse(event) {
+            event.preventDefault();
+            
+            const formData = {
+                id: courses.length + 1,
+                name: document.getElementById('schoolName').value,
+                type: document.getElementById('schoolType').value,
+                department: document.getElementById('schoolLocation').value,
+                head: document.getElementById('adminName').value,
+                duration: document.getElementById('schoolEmail').value,
+                code: document.getElementById('schoolPhone').value,
+                status: 'active'
+            };
+
+            courses.push(formData);
+            
+            // Add activity log entry
+            activities.unshift({
+                type: 'add',
+                title: 'New Course Added',
+                description: `${formData.name} was added to the system`,
+                time: 'Just now'
+            });
+
+            updateAccountsTable();
+            updateCourseListTable();
+            updateActivityLog();
+            clearForm();
+            
+            // Show success message
+            alert(`Course "${formData.name}" has been successfully added!`);
+        }
+
+        function clearForm() {
+            document.getElementById('addSchoolForm').reset();
+        }
+
+        function updateAccountsTable() {
+            const tableBody = document.getElementById('accountsTableBody');
+            tableBody.innerHTML = '';
+
+            courses.forEach(course => {
+                const row = document.createElement('tr');
+                
+                const statusClass = course.status === 'active' ? 'status-active' : 
+                                  course.status === 'inactive' ? 'status-inactive' : 'status-pending';
+                
+                row.innerHTML = `
+                    <td><strong>${course.name}</strong></td>
+                    <td>${course.head}</td>
+                    <td>${course.department}</td>
+                    <td>${course.duration} years</td>
+                    <td>${course.code}</td>
+                    <td>
+                        <span class="status-badge ${statusClass}">
+                            ${course.status.charAt(0).toUpperCase() + course.status.slice(1)}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary btn-small" onclick="editCourse(${course.id})" title="Edit Course">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+
+        function editCourse(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            if (course) {
+                alert(`Edit functionality for "${course.name}" would be implemented here.`);
+            }
+        }
+
+        function updateActivityLog() {
+            const activityLog = document.getElementById('activityLog');
+            activityLog.innerHTML = '';
+
+            activities.forEach(activity => {
+                const activityItem = document.createElement('div');
+                activityItem.className = 'activity-item';
+                
+                activityItem.innerHTML = `
+                    <div class="activity-icon ${activity.type}">
+                        <i class="fas fa-${activity.type === 'add' ? 'plus' : activity.type === 'edit' ? 'edit' : activity.type === 'delete' ? 'trash' : 'sign-in-alt'}"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">${activity.title}</div>
+                        <div class="activity-description">${activity.description}</div>
+                    </div>
+                    <div class="activity-time">${activity.time}</div>
+                `;
+                
+                activityLog.appendChild(activityItem);
+            });
+        }
+
+        // School filtering function - ENHANCED
+        function filterBySchool() {
+            const schoolFilter = document.getElementById('schoolFilter');
+            currentSchool = schoolFilter.value;
+            
+            // Update the display title or info based on selected school
+            const sectionTitle = document.querySelector('#school-data .section-title');
+            if (currentSchool === 'all') {
+                sectionTitle.innerHTML = '<i class="fas fa-chart-bar"></i> Student Data Analytics - All Schools';
+            } else {
+                const schoolName = schoolFilter.options[schoolFilter.selectedIndex].text;
+                sectionTitle.innerHTML = `<i class="fas fa-chart-bar"></i> Student Data Analytics - ${schoolName}`;
+            }
+            
+            updateTable();
+            updateSummary();
+            
+            // Add activity log entry
+            activities.unshift({
+                type: 'edit',
+                title: 'Filter Applied',
+                description: `Data filtered by school: ${schoolFilter.options[schoolFilter.selectedIndex].text}`,
+                time: 'Just now'
+            });
+            updateActivityLog();
+        }
+
+        // NEW: Educational Attainment filtering function
+        function filterByEducationalAttainment() {
+            const educationalFilter = document.getElementById('educationalFilter');
+            currentEducationalLevel = educationalFilter.value;
+            
+            // Update section title to reflect educational level filter
+            const sectionTitle = document.querySelector('#school-data .section-title');
+            const schoolFilter = document.getElementById('schoolFilter');
+            const schoolName = currentSchool === 'all' ? 'All Schools' : schoolFilter.options[schoolFilter.selectedIndex].text;
+            const educationalName = educationalFilter.options[educationalFilter.selectedIndex].text;
+            
+            sectionTitle.innerHTML = `<i class="fas fa-chart-bar"></i> Student Data Analytics - ${schoolName} | ${educationalName}`;
+            
+            // Apply filtering logic based on educational level
+            filterDataByEducationalLevel();
+            updateTable();
+            updateSummary();
+            
+            // Add activity log entry
+            activities.unshift({
+                type: 'edit',
+                title: 'Educational Filter Applied',
+                description: `Data filtered by educational attainment: ${educationalName}`,
+                time: 'Just now'
+            });
+            updateActivityLog();
+        }
+
+        // NEW: Filter data based on educational level
+        function filterDataByEducationalLevel() {
+            if (currentEducationalLevel === 'all') {
+                // Show all data - no filtering needed
+                return;
+            }
+
+            // Define course mappings for different educational levels
+            const educationalMappings = {
+                'elementary': [],
+                'secondary': [],
+                'vocational': ['Engineering Technology', 'Railway Engineering'],
+                'undergraduate': [
+                    'Bachelor of Science in Architecture',
+                    'Bachelor of Science in Civil Engineering',
+                    'Bachelor of Science in Computer Engineering',
+                    'Bachelor of Science in Electrical Engineering',
+                    'Bachelor of Science in Electronics Engineering',
+                    'Bachelor of Science in Industrial Engineering',
+                    'Bachelor of Science in Mechanical Engineering',
+                    'Bachelor of Arts in Communication',
+                    'Bachelor of Science in Hospitality Management',
+                    'Bachelor of Science in Tourism Management',
+                    'Bachelor of Science in Computer Science',
+                    'Business Administration',
+                    'Computer Science',
+                    'Liberal Arts',
+                    'International Business',
+                    'Global Studies',
+                    'Modern Languages',
+                    'Computer Engineering',
+                    'Robotics',
+                    'Data Science',
+                    'Biotechnology',
+                    'Fine Arts',
+                    'Music Performance',
+                    'Digital Media',
+                    'Theater Arts'
+                ],
+                'graduate': [],
+                'postgraduate': [],
+                'doctorate': [],
+                'certificate': [
+                    'BACOMM major in Creative and Performing Arts',
+                    'BACOMM major in New Media Track',
+                    'BSCE major in Construction Engineering and Management',
+                    'BSCE major in Structural Engineering',
+                    'BSCS major in Network and Data Communication'
+                ],
+                'diploma': []
+            };
+
+            // This function will be used to filter visible courses in the table
+            // The actual filtering logic will be applied in updateTable()
+        }
+
+        // School Info Functions
+        function showYearManagement() {
+            const yearSection = document.getElementById('yearManagementSection');
+            const isVisible = yearSection.style.display !== 'none';
+            
+            if (isVisible) {
+                yearSection.style.display = 'none';
+                document.querySelector('.year-management').innerHTML = '<i class="fas fa-calendar-plus"></i> Manage Years';
+            } else {
+                yearSection.style.display = 'block';
+                document.querySelector('.year-management').innerHTML = '<i class="fas fa-calendar-minus"></i> Hide Year Management';
+                updateYearsList();
+            }
+        }
+
+        function updateYearsList() {
+            const yearsList = document.getElementById('yearsList');
+            yearsList.innerHTML = '';
+            
+            academicYears.forEach((year, index) => {
+                const yearItem = document.createElement('div');
+                yearItem.className = 'year-item';
+                yearItem.innerHTML = `
+                    <span class="year-name">${year}</span>
+                    <button class="delete-year-btn" onclick="deleteYear(${index})" title="Delete Year">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                yearsList.appendChild(yearItem);
+            });
+        }
+
+        function addNewYear() {
+            const newYearInput = document.getElementById('newYearInput');
+            const newYear = newYearInput.value.trim();
+            
+            if (!newYear) {
+                alert('Please enter a year.');
+                return;
+            }
+            
+            if (academicYears.includes(newYear)) {
+                alert('This year already exists.');
+                return;
+            }
+            
+            // Add new year to the array
+            academicYears.push(newYear);
+            
+            // Add new column to all school data
+            Object.keys(schoolsData).forEach(school => {
+                Object.keys(schoolsData[school]).forEach(category => {
+                    Object.keys(schoolsData[school][category]).forEach(course => {
+                        schoolsData[school][category][course].push(0);
+                    });
+                });
+            });
+            
+            // Update table headers
+            updateTableHeaders();
+            
+            // Update table content
+            updateTable();
+            updateSummary();
+            updateYearsList();
+            
+            // Clear input
+            newYearInput.value = '';
+            
+            // Add activity log entry
+            activities.unshift({
+                type: 'add',
+                title: 'New Year Added',
+                description: `Academic year ${newYear} was added to the system`,
+                time: 'Just now'
+            });
+            updateActivityLog();
+            
+            alert(`Year ${newYear} added successfully!`);
+        }
+
+        function deleteYear(yearIndex) {
+            if (academicYears.length <= 1) {
+                alert('Cannot delete the last remaining year.');
+                return;
+            }
+            
+            const yearToDelete = academicYears[yearIndex];
+            
+            if (confirm(`Are you sure you want to delete the year ${yearToDelete}? This will remove all data for this year.`)) {
+                // Remove year from array
+                academicYears.splice(yearIndex, 1);
+                
+                // Remove data from all schools
+                Object.keys(schoolsData).forEach(school => {
+                    Object.keys(schoolsData[school]).forEach(category => {
+                        Object.keys(schoolsData[school][category]).forEach(course => {
+                            schoolsData[school][category][course].splice(yearIndex, 1);
+                        });
+                    });
+                });
+                
+                // Update table headers
+                updateTableHeaders();
+                
+                // Update table content
+                updateTable();
+                updateSummary();
+                updateYearsList();
+                
+                // Add activity log entry
+                activities.unshift({
+                    type: 'delete',
+                    title: 'Year Deleted',
+                    description: `Academic year ${yearToDelete} was removed from the system`,
+                    time: 'Just now'
+                });
+                updateActivityLog();
+                
+                alert(`Year ${yearToDelete} deleted successfully!`);
+            }
+        }
+
+        function updateTableHeaders() {
+            const headerRow = document.querySelector('.data-table thead tr');
+            
+            // Remove existing year headers (keep first header for course names)
+            const existingHeaders = headerRow.querySelectorAll('th:not(:first-child)');
+            existingHeaders.forEach(header => header.remove());
+            
+            // Add new year headers
+            academicYears.forEach((year, index) => {
+                const th = document.createElement('th');
+                th.id = `year-header-${index}`;
+                th.textContent = year;
+                headerRow.appendChild(th);
+            });
+        }
+
+        function filterByCategory() {
+            const categoryFilter = document.getElementById('categoryFilter');
+            currentFilter = categoryFilter.value;
+            
+            // Add activity log entry
+            activities.unshift({
+                type: 'edit',
+                title: 'Category Filter Applied',
+                description: `Filtered by category: ${categoryFilter.options[categoryFilter.selectedIndex].text}`,
+                time: 'Just now'
+            });
+            
+            updateActivityLog();
+            updateTable();
+            updateSummary();
+        }
+
+        function updateTable() {
+            const tableBody = document.getElementById('tableBody');
+            const data = schoolsData[currentSchool][currentFilter];
+            
+            tableBody.innerHTML = '';
+            
+            // Define course mappings for different educational levels
+            const educationalMappings = {
+                'all': Object.keys(data),
+                'elementary': [],
+                'secondary': [],
+                'vocational': Object.keys(data).filter(course => 
+                    course.includes('Engineering Technology') || 
+                    course.includes('Railway Engineering')
+                ),
+                'undergraduate': Object.keys(data).filter(course => 
+                    course.startsWith('Bachelor of Science') || 
+                    course.startsWith('Bachelor of Arts') ||
+                    course === 'Business Administration' ||
+                    course === 'Computer Science' ||
+                    course === 'Liberal Arts' ||
+                    course === 'International Business' ||
+                    course === 'Global Studies' ||
+                    course === 'Modern Languages' ||
+                    course === 'Computer Engineering' ||
+                    course === 'Robotics' ||
+                    course === 'Data Science' ||
+                    course === 'Biotechnology' ||
+                    course === 'Fine Arts' ||
+                    course === 'Music Performance' ||
+                    course === 'Digital Media' ||
+                    course === 'Theater Arts'
+                ),
+                'graduate': [],
+                'postgraduate': [],
+                'doctorate': [],
+                'certificate': Object.keys(data).filter(course => 
+                    course.includes('major in') ||
+                    course.includes('Certificate') ||
+                    course.includes('Certification')
+                ),
+                'diploma': Object.keys(data).filter(course => 
+                    course.includes('Diploma')
+                )
+            };
+
+            // Get courses to display based on educational filter
+            const coursesToShow = educationalMappings[currentEducationalLevel] || Object.keys(data);
+            
+            coursesToShow.forEach((course, index) => {
+                if (data[course]) {
+                    const row = document.createElement('tr');
+                    row.className = 'course-row';
+                    
+                    let rowHTML = `
+                        <td>
+                            <input type="checkbox" class="delete-checkbox" data-course="${course}">
+                            <span class="course-name">${course}</span>
+                        </td>
+                    `;
+                    
+                    // Add cells for each year
+                    academicYears.forEach((year, yearIndex) => {
+                        const value = data[course][yearIndex] || 0;
+                        rowHTML += `
+                            <td class="editable-cell">
+                                <input type="number" class="editable-input" value="${value}" 
+                                       onchange="updateData('${course}', ${yearIndex}, this.value)" min="0">
+                            </td>
+                        `;
+                    });
+                    
+                    row.innerHTML = rowHTML;
+                    tableBody.appendChild(row);
+                }
+            });
+        }
+
+        function updateData(course, yearIndex, value) {
+            schoolsData[currentSchool][currentFilter][course][yearIndex] = parseInt(value) || 0;
+            updateSummary();
+            
+            // Highlight the row briefly
+            const row = event.target.closest('tr');
+            row.classList.add('highlight');
+            setTimeout(() => {
+                row.classList.remove('highlight');
+            }, 1000);
+        }
+
+        function updateSummary() {
+            const data = schoolsData[currentSchool][currentFilter];
+            let totals = new Array(academicYears.length).fill(0);
+            
+            // Apply educational level filter to summary calculation
+            const educationalMappings = {
+                'all': Object.keys(data),
+                'undergraduate': Object.keys(data).filter(course => 
+                    course.startsWith('Bachelor of Science') || 
+                    course.startsWith('Bachelor of Arts') ||
+                    course === 'Business Administration' ||
+                    course === 'Computer Science' ||
+                    course === 'Liberal Arts' ||
+                    course === 'International Business' ||
+                    course === 'Global Studies' ||
+                    course === 'Modern Languages' ||
+                    course === 'Computer Engineering' ||
+                    course === 'Robotics' ||
+                    course === 'Data Science' ||
+                    course === 'Biotechnology' ||
+                    course === 'Fine Arts' ||
+                    course === 'Music Performance' ||
+                    course === 'Digital Media' ||
+                    course === 'Theater Arts'
+                ),
+                'certificate': Object.keys(data).filter(course => 
+                    course.includes('major in')
+                ),
+                'vocational': Object.keys(data).filter(course => 
+                    course.includes('Engineering Technology') || 
+                    course.includes('Railway Engineering')
+                )
+            };
+
+            const coursesToInclude = educationalMappings[currentEducationalLevel] || Object.keys(data);
+            
+            coursesToInclude.forEach(course => {
+                if (data[course]) {
+                    data[course].forEach((value, index) => {
+                        if (index < totals.length) {
+                            totals[index] += value;
+                        }
+                    });
+                }
+            });
+            
+            const totalSum = totals.reduce((sum, val) => sum + val, 0);
+            
+            // Update summary cards based on current filter
+            switch(currentFilter) {
+                case 'enrollees':
+                    document.getElementById('totalEnrollees').textContent = totalSum.toLocaleString();
+                    break;
+                case 'outside':
+                    document.getElementById('totalOutside').textContent = totalSum.toLocaleString();
+                    break;
+                case 'inside':
+                    document.getElementById('totalInside').textContent = totalSum.toLocaleString();
+                    break;
+                case 'graduates':
+                    document.getElementById('totalGraduates').textContent = totalSum.toLocaleString();
+                    break;
+                case 'passers':
+                    document.getElementById('totalPassers').textContent = totalSum.toLocaleString();
+                    break;
+            }
+        }
+
+        function addNewCourse() {
+            const courseName = prompt('Enter course name:');
+            if (courseName && courseName.trim()) {
+                const trimmedName = courseName.trim();
+                
+                // Add to all categories of current school
+                Object.keys(schoolsData[currentSchool]).forEach(category => {
+                    schoolsData[currentSchool][category][trimmedName] = new Array(academicYears.length).fill(0);
+                });
+                
+                updateTable();
+                updateSummary();
+                
+                // Add activity log entry
+                activities.unshift({
+                    type: 'add',
+                    title: 'New Course Added',
+                    description: `Course "${trimmedName}" was added to ${currentSchool === 'all' ? 'the system' : 'the selected school'}`,
+                    time: 'Just now'
+                });
+                updateActivityLog();
+                
+                // Scroll to the new course
+                setTimeout(() => {
+                    const newRow = document.querySelector(`[data-course="${trimmedName}"]`).closest('tr');
+                    if (newRow) {
+                        newRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        newRow.classList.add('highlight');
+                        setTimeout(() => newRow.classList.remove('highlight'), 2000);
+                    }
+                }, 100);
+            }
+        }
+
+        function deleteSelectedCourses() {
+            const checkboxes = document.querySelectorAll('.delete-checkbox:checked');
+            if (checkboxes.length === 0) {
+                alert('Please select courses to delete.');
+                return;
+            }
+            
+            if (confirm(`Are you sure you want to delete ${checkboxes.length} course(s)?`)) {
+                const deletedCourses = [];
+                checkboxes.forEach(checkbox => {
+                    const course = checkbox.dataset.course;
+                    deletedCourses.push(course);
+                    Object.keys(schoolsData[currentSchool]).forEach(category => {
+                        delete schoolsData[currentSchool][category][course];
+                    });
+                });
+                
+                updateTable();
+                updateSummary();
+                document.getElementById('selectAll').checked = false;
+                
+                // Add activity log entry
+                activities.unshift({
+                    type: 'delete',
+                    title: 'Courses Deleted',
+                    description: `${deletedCourses.length} course(s) were removed: ${deletedCourses.join(', ')}`,
+                    time: 'Just now'
+                });
+                updateActivityLog();
+            }
+        }
+
+        function toggleSelectAll() {
+            const selectAll = document.getElementById('selectAll');
+            const checkboxes = document.querySelectorAll('.delete-checkbox');
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAll.checked;
+            });
+        }
+
+        function saveData() {
+            // Simulate saving data
+            const saveBtn = event.target;
+            const originalText = saveBtn.innerHTML;
+            
+            saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            saveBtn.disabled = true;
+            
+            setTimeout(() => {
+                saveBtn.innerHTML = '<i class="fas fa-check"></i> Saved!';
+                
+                // Add activity log entry
+                activities.unshift({
+                    type: 'edit',
+                    title: 'Data Saved',
+                    description: 'All school data changes have been saved successfully',
+                    time: 'Just now'
+                });
+                updateActivityLog();
+                
+                setTimeout(() => {
+                    saveBtn.innerHTML = originalText;
+                    saveBtn.disabled = false;
+                }, 1000);
+            }, 1500);
+            
+            // Here you would typically send the data to a server
+            console.log('Data saved:', schoolsData);
+        }
+
+        // ── List of Course Table (paginated, 10 per page) ──────────────────────
+        let courseListPage = 1;
+        const COURSE_PAGE_SIZE = 10;
+
+        function updateCourseListTable() {
+            const tableBody = document.getElementById('courseListTableBody');
+            const pagination = document.getElementById('courseListPagination');
+            if (!tableBody || !pagination) return;
+
+            tableBody.innerHTML = '';
+            const totalPages = Math.max(1, Math.ceil(courses.length / COURSE_PAGE_SIZE));
+            if (courseListPage > totalPages) courseListPage = totalPages;
+            const start = (courseListPage - 1) * COURSE_PAGE_SIZE;
+            const pageCourses = courses.slice(start, start + COURSE_PAGE_SIZE);
+
+            if (pageCourses.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--text-gray);">No courses added yet.</td></tr>';
+            } else {
+                pageCourses.forEach((course, idx) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td style="text-align:center;">${start + idx + 1}</td>
+                        <td><strong>${course.name}</strong></td>
+                        <td>${course.type || '-'}</td>
+                        <td>${course.department || '-'}</td>
+                        <td>${course.head || '-'}</td>
+                        <td style="text-align:center;">${course.duration ? course.duration + ' yr(s)' : '-'}</td>
+                        <td style="text-align:center;">${course.code || '-'}</td>
+                        <td style="text-align:center;">
+                            <button class="btn btn-primary btn-small" onclick="editCourseInList(${course.id})" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-small" onclick="deleteCourseFromList(${course.id})" title="Delete" style="margin-left:0.25rem;">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+
+            // Render pagination buttons
+            pagination.innerHTML = '';
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.textContent = i;
+                btn.className = 'btn btn-small ' + (i === courseListPage ? 'btn-primary' : 'btn-secondary');
+                btn.style.minWidth = '36px';
+                btn.onclick = (function(page) {
+                    return function() { courseListPage = page; updateCourseListTable(); };
+                })(i);
+                pagination.appendChild(btn);
+            }
+        }
+
+        function editCourseInList(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            if (!course) return;
+            const newName = prompt('Course Name:', course.name);
+            if (newName === null) return;
+            const newType = prompt('Course Type:', course.type || '');
+            if (newType === null) return;
+            const newDept = prompt('Department:', course.department || '');
+            if (newDept === null) return;
+            const newHead = prompt('Course Head:', course.head || '');
+            if (newHead === null) return;
+            const newDur = prompt('Duration (Years):', course.duration || '');
+            if (newDur === null) return;
+            const newCode = prompt('Course Code:', course.code || '');
+            if (newCode === null) return;
+
+            course.name = newName.trim() || course.name;
+            course.type = newType.trim() || course.type;
+            course.department = newDept.trim() || course.department;
+            course.head = newHead.trim() || course.head;
+            course.duration = newDur.trim() || course.duration;
+            course.code = newCode.trim() || course.code;
+
+            activities.unshift({
+                type: 'edit',
+                title: 'Course Updated',
+                description: `Course "${course.name}" was updated`,
+                time: 'Just now'
+            });
+            updateCourseListTable();
+            updateAccountsTable();
+            updateActivityLog();
+            alert('Course updated successfully!');
+        }
+
+        function deleteCourseFromList(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            if (!course) return;
+            if (!confirm(`Are you sure you want to delete "${course.name}"?`)) return;
+            const idx = courses.indexOf(course);
+            courses.splice(idx, 1);
+            const totalPages = Math.max(1, Math.ceil(courses.length / COURSE_PAGE_SIZE));
+            if (courseListPage > totalPages) courseListPage = totalPages;
+            activities.unshift({
+                type: 'delete',
+                title: 'Course Deleted',
+                description: `Course "${course.name}" was deleted from the list`,
+                time: 'Just now'
+            });
+            updateCourseListTable();
+            updateAccountsTable();
+            updateActivityLog();
+        }
+
+        // Initialize the dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up form submission
+            document.getElementById('addSchoolForm').addEventListener('submit', addCourse);
+            
+            // Initialize displays
+            updateAccountsTable();
+            updateCourseListTable();
+            updateActivityLog();
+            updateTable();
+            updateSummary();
+            
+            // Display logged-in user's full name from localStorage
+            const portalName = localStorage.getItem('portalUserName');
+            if (portalName) {
+                const adminNameEl = document.querySelector('.admin-name');
+                if (adminNameEl) adminNameEl.textContent = portalName;
+            }
+
+            // Add smooth scroll behavior
+            document.documentElement.style.scrollBehavior = 'smooth';
+        });
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case 'n':
+                        e.preventDefault();
+                        showSection('add-school');
+                        setTimeout(() => document.getElementById('schoolName').focus(), 100);
+                        break;
+                    case 'r':
+                        e.preventDefault();
+                        clearForm();
+                        break;
+                    case 's':
+                        e.preventDefault();
+                        saveData();
+                        break;
+                    case 'a':
+                        if (e.shiftKey) {
+                            e.preventDefault();
+                            addNewCourse();
+                        }
+                        break;
+                }
+            }
+        });
+
+        // Add keyboard navigation for modals
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const activeModal = document.querySelector('.modal[style*="block"]');
+                
+                if (activeModal) {
+                    activeModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
