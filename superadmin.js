@@ -2049,6 +2049,7 @@ async function addSchool(event) {
     var teaching_staff = parseInt(document.getElementById('teachingStaff').value) || 0;
     var nonteachingstaff = parseInt(document.getElementById('nonTeachingStaff').value) || 0;
     var password = document.getElementById('schoolPassword').value;
+    var username = document.getElementById('schoolUsername').value.trim();
     var description = document.getElementById('schoolDescription').value.trim();
     var landline = document.getElementById('schoolLandline').value.trim();
 
@@ -2061,6 +2062,10 @@ async function addSchool(event) {
         }
         if (d.schoolabbrev.toLowerCase() === schoolabbrev.toLowerCase()) { 
             showToast('School Abbreviation Already Exist', 'error'); 
+            return; 
+        }
+        if (d.username && d.username.toLowerCase() === username.toLowerCase()) { 
+            showToast('Username Already Exist', 'error'); 
             return; 
         }
     }
@@ -2079,6 +2084,7 @@ async function addSchool(event) {
         teaching_staff: teaching_staff,
         nonteachingstaff: nonteachingstaff,
         password: password,
+        username: username,
         description: description,
         AddedBy: currentUser ? currentUser.username : 'SuperAdmin',
         deletestats: 0,
@@ -2272,10 +2278,12 @@ async function openEditSchool(docId) {
         document.getElementById('editTeachingStaff').value = d.teaching_staff || 0;
         document.getElementById('editNonTeachingStaff').value = d.nonteachingstaff || 0;
         document.getElementById('editSchoolPassword').value = d.password || '';
+        document.getElementById('editSchoolUsername').value = d.username || '';
         document.getElementById('editSchoolDescription').value = d.description || '';
         
         const modal = document.getElementById('editSchoolModal');
         modal.classList.add('show');
+        modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
     } catch(e) {
         console.error('Error opening edit school:', e);
@@ -2284,7 +2292,9 @@ async function openEditSchool(docId) {
 }
 
         function closeEditSchoolModal() {
-            document.getElementById('editSchoolModal').style.display = 'none';
+            const modal = document.getElementById('editSchoolModal');
+            modal.classList.remove('show');
+            modal.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
@@ -2302,6 +2312,7 @@ async function saveEditSchool() {
         var teaching_staff = parseInt(document.getElementById('editTeachingStaff').value) || 0;
         var nonteachingstaff = parseInt(document.getElementById('editNonTeachingStaff').value) || 0;
         var password = document.getElementById('editSchoolPassword').value;
+        var username = document.getElementById('editSchoolUsername').value.trim();
         var description = document.getElementById('editSchoolDescription').value.trim();
 
         if (!validatePhoneNumber(contact_number)) {
@@ -2344,6 +2355,10 @@ async function saveEditSchool() {
                 showToast('School abbreviation already exists!', 'error');
                 return;
             }
+            if (d.username && d.username.toLowerCase() === username.toLowerCase()) {
+                showToast('Username already exists!', 'error');
+                return;
+            }
         }
 
         await db.collection('ListofSchool').doc(docId).update({
@@ -2357,6 +2372,7 @@ async function saveEditSchool() {
             teaching_staff: teaching_staff,
             nonteachingstaff: nonteachingstaff,
             password: password,
+            username: username,
             description: description,
             website: website
         });
@@ -3463,6 +3479,7 @@ function alEsc(str) {
                 const _sPres = document.createElement('td'); _sPres.textContent = s.schoolpres || '—';
                 const _sEmail = document.createElement('td'); _sEmail.textContent = s.email_add || '—';
                 const _sPhone = document.createElement('td'); _sPhone.textContent = s.contact_number || '—';
+                const _sUsername = document.createElement('td'); _sUsername.textContent = s.username || '—';
                 const _sAdmin = document.createElement('td'); _sAdmin.textContent = adminInfo;
                 const _sAct = document.createElement('td'); _sAct.style.whiteSpace = 'nowrap';
                 const _sEdit = document.createElement('button');
@@ -3475,7 +3492,7 @@ function alEsc(str) {
                 _sDel.innerHTML = '<i class="fas fa-trash"></i> Delete';
                 _sDel.onclick = (function(d,n){ return function(){ confirmDeleteSchool(d,n); }; })(s.docId, s.schoolname || '');
                 _sAct.appendChild(_sEdit); _sAct.appendChild(_sDel);
-                [_sNum,_sName,_sAbbr,_sPres,_sEmail,_sPhone,_sAdmin,_sAct].forEach(function(td){ tr.appendChild(td); });
+                [_sNum,_sName,_sAbbr,_sPres,_sEmail,_sPhone,_sUsername,_sAdmin,_sAct].forEach(function(td){ tr.appendChild(td); });
                 tbody.appendChild(tr);
           });
       }

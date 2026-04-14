@@ -457,6 +457,7 @@
                                     <th>School President</th>
                                     <th>Email</th>
                                     <th>Phone</th>
+                                    <th>Username</th>
                                     <th>Admin Account</th>
                                     <th>Actions</th>
                                 </tr>
@@ -968,6 +969,10 @@
                             <label class="form-label">Password</label>
                             <input type="password" class="form-input" id="schoolPassword" placeholder="Enter account password" required>
                         </div>
+                        <div class="form-group">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-input" id="schoolUsername" placeholder="Enter account username" required>
+                        </div>
                     </div>
                     <div class="form-group" style="margin-bottom:1.5rem;">
                         <label class="form-label">School Description</label>
@@ -1126,69 +1131,96 @@
         </div>
     </div>
 
-    <!-- Edit School Modal -->
-    <div id="editSchoolModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center;">
-        <div class="modal-inner" style="background:#fff; border-radius:14px; padding:2rem; width:100%; max-width:700px; box-shadow:0 8px 32px rgba(0,0,0,0.18); position:relative; max-height:90vh; overflow-y:auto;">
-            <button class="modal-close" onclick="closeEditSchoolModal()" style="position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:1.4rem; cursor:pointer; color:var(--text-gray);">&times;</button>
-            <div class="modal-title" style="font-size:1.2rem; font-weight:700; color:var(--text-dark); margin-bottom:1.25rem; display:flex; align-items:center; gap:0.5rem;"><i class="fas fa-school" style="color:var(--primary-blue);"></i> Edit School</div>
-            <input type="hidden" id="editSchoolDocId">
-            <div class="form-grid">
-                <div class="form-group">
-                    <label class="form-label">School Name</label>
-                    <input type="text" class="form-input" id="editSchoolName" placeholder="School name" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">School Abbreviation</label>
-                    <input type="text" class="form-input" id="editSchoolAbbreviation" placeholder="Abbreviation" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">School President</label>
-                    <input type="text" class="form-input" id="editSchoolPresident" placeholder="President name" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Address</label>
-                    <input type="text" class="form-input" id="editSchoolAddress" placeholder="Address" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Email Address</label>
-                    <input type="email" class="form-input" id="editSchoolEmail" placeholder="Email" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Phone Number</label>
-                    <input type="tel" class="form-input" id="editSchoolPhone" placeholder="Phone" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Landline</label>
-                    <input type="tel" class="form-input" id="editSchoolLandline" placeholder="Landline">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Website</label>
-                    <input type="url" class="form-input" id="editSchoolWebsite" placeholder="Website">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Teaching Staff</label>
-                    <input type="number" class="form-input" id="editTeachingStaff" placeholder="Teaching staff" min="0" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Non-Teaching Staff</label>
-                    <input type="number" class="form-input" id="editNonTeachingStaff" placeholder="Non-teaching staff" min="0" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-input" id="editSchoolPassword" placeholder="Password" required>
-                </div>
-            </div>
-            <div class="form-group" style="margin-bottom:1.5rem;">
-                <label class="form-label">Description</label>
-                <textarea class="form-textarea" id="editSchoolDescription" placeholder="School description" required></textarea>
-            </div>
-            <div style="display:flex; gap:1rem; justify-content:flex-end; margin-top:1.5rem;">
-                <button class="btn btn-secondary" onclick="closeEditSchoolModal()">
-                    <i class="fas fa-times"></i> Cancel
+    <!-- ENHANCED Edit School Modal -->
+    <div id="editSchoolModal">
+        <div class="modal-overlay" onclick="closeEditSchoolModal()"></div>
+        <div class="modal-inner">
+            <!-- Enhanced Modal Header -->
+            <div class="modal-header-enhanced">
+                <button class="modal-close" onclick="closeEditSchoolModal()">
+                    <i class="fas fa-times"></i>
                 </button>
-                <button class="btn btn-primary" onclick="saveEditSchool()">
-                    <i class="fas fa-save"></i> Save Changes
-                </button>
+                <div class="school-icon-enhanced">
+                    <i class="fas fa-school"></i>
+                </div>
+                <div class="modal-title">
+                    <i class="fas fa-edit"></i>
+                    Edit School Information
+                </div>
+                <div class="modal-subtitle-enhanced">Update school details and settings</div>
+            </div>
+
+            <!-- Enhanced Form Container -->
+            <div class="form-container-enhanced">
+                <input type="hidden" id="editSchoolDocId">
+                
+                <div class="form-grid">
+                    <div class="form-group-enhanced">
+                        <label class="form-label">School Name</label>
+                        <input type="text" class="form-input" id="editSchoolName" placeholder="Enter school name" required>
+                    </div>
+                    <div class="form-group-enhanced">
+                        <label class="form-label">School Abbreviation</label>
+                        <input type="text" class="form-input" id="editSchoolAbbreviation" placeholder="e.g. BatStateU" required>
+                    </div>
+                    <div class="form-group-enhanced">
+                        <label class="form-label">School President</label>
+                        <input type="text" class="form-input" id="editSchoolPresident" placeholder="Enter president name" required>
+                    </div>
+                    <div class="form-group-enhanced">
+                        <label class="form-label">Address</label>
+                        <input type="text" class="form-input" id="editSchoolAddress" placeholder="Enter school address" required>
+                    </div>
+                    <div class="form-group-enhanced">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" id="editSchoolEmail" placeholder="school@edu.ph" required>
+                    </div>
+                    <div class="form-group-enhanced">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-input" id="editSchoolPhone" placeholder="09##-###-####" required>
+                    </div>
+                    <div class="form-group-enhanced">
+                        <label class="form-label">Landline</label>
+                        <input type="tel" class="form-input" id="editSchoolLandline" placeholder="(043) 123-4567">
+                    </div>
+                    <div class="form-group-enhanced">
+                        <label class="form-label">Website</label>
+                        <input type="url" class="form-input" id="editSchoolWebsite" placeholder="https://www.example.com">
+                    </div>
+                    <div class="form-group-enhanced">
+                        <label class="form-label">Teaching Staff</label>
+                        <input type="number" class="form-input" id="editTeachingStaff" placeholder="Number of teaching staff" min="0" required>
+                    </div>
+                    <div class="form-group-enhanced">
+                        <label class="form-label">Non-Teaching Staff</label>
+                        <input type="number" class="form-input" id="editNonTeachingStaff" placeholder="Number of non-teaching staff" min="0" required>
+                    </div>
+                    <div class="form-group-enhanced">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-input" id="editSchoolUsername" placeholder="Enter username" required>
+                    </div>
+                    <div class="form-group-enhanced">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" id="editSchoolPassword" placeholder="Enter password" required>
+                    </div>
+                </div>
+                
+                <div class="form-group" style="margin-bottom:1.5rem;">
+                    <label class="form-label">School Description</label>
+                    <textarea class="form-textarea" id="editSchoolDescription" placeholder="Enter a brief description of the school..." required></textarea>
+                </div>
+
+                <!-- Enhanced Action Buttons -->
+                <div class="form-actions-enhanced">
+                    <button class="btn-cancel-enhanced" onclick="closeEditSchoolModal()">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                    </button>
+                    <button class="btn-save-enhanced" onclick="saveEditSchool()">
+                        <i class="fas fa-save"></i>
+                        Save Changes
+                    </button>
+                </div>
             </div>
         </div>
     </div>

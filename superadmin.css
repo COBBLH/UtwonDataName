@@ -2034,6 +2034,396 @@
             justify-content: flex-end;
         }
 
+        /* ENHANCED EDIT SCHOOL MODAL - IMPROVED DESIGN */
+        #editSchoolModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        #editSchoolModal.show {
+            display: flex !important;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        #editSchoolModal .modal-overlay {
+            position: absolute;
+            inset: 0;
+            cursor: pointer;
+            z-index: 0;
+        }
+
+        /* ENHANCED MODAL INNER CONTAINER */
+        #editSchoolModal .modal-inner {
+            position: relative;
+            background: #fff;
+            border-radius: 24px;
+            width: 95%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.35),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            z-index: 1;
+            animation: slideInScale 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes slideInScale {
+            from {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* ENHANCED MODAL HEADER */
+        #editSchoolModal .modal-header-enhanced {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+            color: #fff;
+            padding: 2.5rem 2rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #editSchoolModal .modal-header-enhanced::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+
+        #editSchoolModal .modal-close {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+        }
+
+        #editSchoolModal .modal-close:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        #editSchoolModal .school-icon-enhanced {
+            width: 90px;
+            height: 90px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #editSchoolModal .school-icon-enhanced::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            border-radius: 50%;
+            animation: rotate 2s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        #editSchoolModal .modal-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        #editSchoolModal .modal-subtitle-enhanced {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* ENHANCED FORM CONTAINER */
+        #editSchoolModal .form-container-enhanced {
+            padding: 2.5rem;
+            background: linear-gradient(145deg, #f8fafc 0%, #ffffff 100%);
+            position: relative;
+        }
+
+        #editSchoolModal .form-container-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(30, 64, 175, 0.2), transparent);
+        }
+
+        /* ENHANCED FORM GRID */
+        #editSchoolModal .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.75rem;
+            margin-bottom: 2rem;
+        }
+
+        #editSchoolModal .form-group-enhanced {
+            position: relative;
+        }
+
+        #editSchoolModal .form-label {
+            font-weight: 700;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        #editSchoolModal .form-label::before {
+            content: '';
+            width: 3px;
+            height: 3px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+        }
+
+        #editSchoolModal .form-input {
+            padding: 1.25rem 1rem;
+            border: 2px solid var(--neutral-200);
+            border-radius: 14px;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--white);
+            width: 100%;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        #editSchoolModal .form-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            background: rgba(30, 64, 175, 0.02);
+            box-shadow: 
+                0 0 0 3px rgba(30, 64, 175, 0.1),
+                0 4px 14px rgba(30, 64, 175, 0.15);
+            transform: translateY(-1px);
+        }
+
+        #editSchoolModal .form-input:hover {
+            border-color: var(--accent-blue);
+        }
+
+        #editSchoolModal .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+            padding: 1.25rem;
+            border: 2px solid var(--neutral-200);
+            border-radius: 14px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--white);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        #editSchoolModal .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            background: rgba(30, 64, 175, 0.02);
+            box-shadow: 
+                0 0 0 3px rgba(30, 64, 175, 0.1),
+                0 4px 14px rgba(30, 64, 175, 0.15);
+            transform: translateY(-1px);
+        }
+
+        /* FLOATING LABEL EFFECT */
+        #editSchoolModal .form-group-enhanced input:focus + .form-label,
+        #editSchoolModal .form-group-enhanced input:not(:placeholder-shown) + .form-label {
+            transform: translateY(-0.5rem);
+            font-size: 0.75rem;
+            color: var(--primary-blue);
+        }
+
+        /* ENHANCED ACTION BUTTONS */
+        #editSchoolModal .form-actions-enhanced {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            align-items: center;
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+            border-top: 1px solid var(--neutral-200);
+        }
+
+        #editSchoolModal .btn-cancel-enhanced {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            color: var(--text-gray);
+            border: 2px solid var(--neutral-200);
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        #editSchoolModal .btn-cancel-enhanced:hover {
+            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+            border-color: var(--text-gray);
+            color: var(--text-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        #editSchoolModal .btn-save-enhanced {
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 14px rgba(30, 64, 175, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #editSchoolModal .btn-save-enhanced::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        #editSchoolModal .btn-save-enhanced:hover::before {
+            transform: translateX(100%);
+        }
+
+        #editSchoolModal .btn-save-enhanced:hover {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.6);
+        }
+
+        #editSchoolModal .btn-save-enhanced:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        /* ENHANCED LOADING STATE */
+        #editSchoolModal .btn-save-enhanced.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        #editSchoolModal .btn-save-enhanced.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid transparent;
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* SCROLLBAR STYLING */
+        #editSchoolModal .modal-inner::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #editSchoolModal .modal-inner::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+
+        #editSchoolModal .modal-inner::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            border-radius: 10px;
+        }
+
+        #editSchoolModal .modal-inner::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+        }
+
         /* Responsive Design */
         @media (max-width: 1200px) {
             .filters-container {
@@ -2056,6 +2446,15 @@
                 min-width: 280px;
                 width: 280px;
                 max-width: 280px;
+            }
+
+            #editSchoolModal .modal-inner {
+                max-width: 800px;
+            }
+
+            #editSchoolModal .form-grid {
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                gap: 1.5rem;
             }
         }
 
@@ -2133,6 +2532,19 @@
             .admin-form-actions .btn {
                 flex: 1;
                 justify-content: center;
+            }
+
+            #editSchoolModal .modal-inner {
+                max-width: 700px;
+            }
+
+            #editSchoolModal .form-container-enhanced {
+                padding: 2rem;
+            }
+
+            #editSchoolModal .form-grid {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
             }
         }
 
@@ -2281,6 +2693,44 @@
             .admin-modal-body {
                 padding: 1.5rem 1rem;
             }
+
+            #editSchoolModal .modal-inner {
+                width: 98%;
+                border-radius: 16px;
+            }
+
+            #editSchoolModal .modal-header-enhanced {
+                padding: 2rem 1.5rem 1.5rem;
+            }
+
+            #editSchoolModal .modal-title {
+                font-size: 1.5rem;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            #editSchoolModal .school-icon-enhanced {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            #editSchoolModal .form-container-enhanced {
+                padding: 1.5rem;
+            }
+
+            #editSchoolModal .form-actions-enhanced {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            #editSchoolModal .btn-cancel-enhanced,
+            #editSchoolModal .btn-save-enhanced {
+                width: 100%;
+                justify-content: center;
+                padding: 1rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -2346,6 +2796,24 @@
             .admin-form-actions {
                 flex-direction: column;
                 align-items: stretch;
+            }
+
+            #editSchoolModal .modal-title {
+                font-size: 1.3rem;
+            }
+
+            #editSchoolModal .school-icon-enhanced {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+            }
+
+            #editSchoolModal .form-container-enhanced {
+                padding: 1rem;
+            }
+
+            #editSchoolModal .form-grid {
+                gap: 1rem;
             }
         }
 
@@ -2478,7 +2946,7 @@
         /* ── Password Eye Toggle ── */
         .password-wrap { display:flex; align-items:center; gap:6px; }
         .password-wrap .password-display { flex:1; }
-        .password-eye-btn { background:none; border:none; cursor:pointer; color:var(--text-gray); font-size:1rem; padding:2px 4px; border-radius:4px; transition:color .2s; flex-shrink:0; line-height:1; }
+        .password-eye-btn { background:none; border:none; cursor:pointer; color:var(--text-gray); font-size:1rem; padding:4px 6px; border-radius:4px; transition:all .2s; flex-shrink:0; line-height:1; }
         .password-eye-btn:hover { color:var(--primary-blue); }
 
         /* ── Delete Confirm Modal ── */
@@ -2489,13 +2957,6 @@
         #deleteConfirmModal .dcm-title { font-size:1.2rem; font-weight:700; color:var(--text-dark); margin-bottom:0.5rem; }
         #deleteConfirmModal .dcm-msg { color:var(--text-gray); font-size:0.95rem; margin-bottom:1.5rem; line-height:1.6; }
         #deleteConfirmModal .dcm-actions { display:flex; gap:0.75rem; justify-content:center; }
-
-        /* ── Edit School Modal ── */
-        #editSchoolModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; }
-        #editSchoolModal .modal-inner { background:#fff; border-radius:14px; padding:2rem; width:100%; max-width:700px; box-shadow:0 8px 32px rgba(0,0,0,0.18); position:relative; max-height:90vh; overflow-y:auto; }
-        #editSchoolModal .modal-title { font-size:1.2rem; font-weight:700; color:var(--text-dark); margin-bottom:1.25rem; display:flex; align-items:center; gap:0.5rem; }
-        #editSchoolModal .modal-close { position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:1.4rem; cursor:pointer; color:var(--text-gray); }
-        #editSchoolModal .modal-close:hover { color:var(--text-dark); }
 
         /* ===== ACTIVITY LOG ===== */
 .al-header { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.75rem; margin-bottom:1.5rem; }
@@ -2594,34 +3055,4 @@
     .al-filter-group { max-width:100%; }
     .al-pagination { flex-direction:column; align-items:center; }
     .al-th-num,.al-td-num,.al-th-loc,.al-td-loc { display:none; }
-}
-#editSchoolModal.show {
-    display: flex !important;
-}
-
-#editSchoolModal .modal-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.5);
-    cursor: pointer;
-    z-index: 0;
-}
-
-#editSchoolModal .modal-inner {
-    position: relative;
-    z-index: 1;
-    animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-#editSchoolModal .form-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-
-#editAdminModal .form-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-    margin-bottom: 1rem;
 }

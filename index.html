@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UTOWN DATA NAME</title>
+    <title id="pageTitle">UTOWN DATA NAME</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
     <style>
         * {
             margin: 0;
@@ -127,17 +127,18 @@
         }
 
         .nav-logo {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient-primary);
-            border-radius: 50%;
+            width: 52px;
+            height: 52px;
+            background: transparent;
+            border-radius: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--white);
+            flex-shrink: 0;
             font-size: 1.25rem;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
+            box-shadow: none;
+            transition: transform 0.3s ease;
+            overflow: hidden;
         }
 
         .nav-logo:hover {
@@ -146,7 +147,13 @@
         }
 
         .nav-logo:nth-child(2) {
-            background: var(--gradient-secondary);
+            background: transparent;
+        }
+
+        .nav-logo-img {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
         }
 
         .nav-site-name {
@@ -395,9 +402,13 @@
             }
 
             .nav-logo {
-                width: 36px;
-                height: 36px;
-                font-size: 1.1rem;
+                width: 40px;
+                height: 40px;
+            }
+
+            .nav-logo-img {
+                width: 40px;
+                height: 40px;
             }
         }
 
@@ -1094,7 +1105,7 @@
         .social-link.instagram:hover { background: linear-gradient(135deg, #e4405f, #fd1d1d, #fcb045); }
         .social-link.linkedin:hover { background: linear-gradient(135deg, #0077b5, #0099d4); }
 
-        /* Login Modal Styles - IMPROVED CENTERING AND RESPONSIVENESS */
+        /* Login Modal Styles */
         .login-modal {
             display: none;
             position: fixed;
@@ -1106,8 +1117,6 @@
             background: rgba(15, 23, 42, 0.8);
             backdrop-filter: blur(8px);
             animation: modalBackdrop 0.3s ease;
-            /* CENTERING FIX - Using flexbox for proper centering */
-            display: flex;
             align-items: center;
             justify-content: center;
             padding: 1rem;
@@ -1284,6 +1293,110 @@
 
         .login-footer a:hover {
             text-decoration: underline;
+        }
+
+        /* School Login Modal */
+        .school-login-modal {
+            display: none;
+            position: fixed;
+            z-index: 2500;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            animation: modalBackdrop 0.3s ease;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .school-login-modal.show {
+            display: flex;
+        }
+
+        .school-login-content {
+            background: var(--white);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 450px;
+            max-height: calc(100vh - 2rem);
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            border: 1px solid var(--neutral-200);
+        }
+
+        .school-login-header {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 2rem 2rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .school-login-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .school-login-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .school-login-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--white);
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .school-login-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .school-login-subtitle {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.3;
+        }
+
+        .school-login-body {
+            padding: 2rem;
+        }
+
+        .school-login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
         /* About Us Modal Styles */
@@ -1594,37 +1707,6 @@
             gap: 0.5rem;
         }
 
-        .footer-links-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .footer-link-item {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 500;
-            opacity: 0.9;
-            transition: all 0.3s ease;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid transparent;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .footer-link-item:hover {
-            opacity: 1;
-            transform: translateX(4px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .footer-link-item i {
-            font-size: 0.9rem;
-            width: 16px;
-            opacity: 0.7;
-        }
-
         .footer-contact {
             animation: fadeInUp 0.6s ease 0.2s both;
         }
@@ -1701,35 +1783,12 @@
             background: rgba(255, 255, 255, 0.2);
         }
 
-        .footer-social-link.facebook:hover { 
-            background: linear-gradient(135deg, #1877f2, #42a5f5);
-            box-shadow: 0 10px 25px rgba(24, 119, 242, 0.3);
-        }
-
-        .footer-social-link.twitter:hover { 
-            background: linear-gradient(135deg, #1da1f2, #42a5f5);
-            box-shadow: 0 10px 25px rgba(29, 161, 242, 0.3);
-        }
-
-        .footer-social-link.instagram:hover { 
-            background: linear-gradient(135deg, #e4405f, #fd1d1d, #fcb045);
-            box-shadow: 0 10px 25px rgba(228, 64, 95, 0.3);
-        }
-
-        .footer-social-link.linkedin:hover { 
-            background: linear-gradient(135deg, #0077b5, #0099d4);
-            box-shadow: 0 10px 25px rgba(0, 119, 181, 0.3);
-        }
-
-        .footer-social-link.youtube:hover { 
-            background: linear-gradient(135deg, #ff0000, #ff4444);
-            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3);
-        }
-
-        .footer-social-link.tiktok:hover { 
-            background: linear-gradient(135deg, #000000, #ff0050);
-            box-shadow: 0 10px 25px rgba(255, 0, 80, 0.3);
-        }
+        .footer-social-link.facebook:hover { background: linear-gradient(135deg, #1877f2, #42a5f5); box-shadow: 0 10px 25px rgba(24, 119, 242, 0.3); }
+        .footer-social-link.twitter:hover { background: linear-gradient(135deg, #1da1f2, #42a5f5); box-shadow: 0 10px 25px rgba(29, 161, 242, 0.3); }
+        .footer-social-link.instagram:hover { background: linear-gradient(135deg, #e4405f, #fd1d1d, #fcb045); box-shadow: 0 10px 25px rgba(228, 64, 95, 0.3); }
+        .footer-social-link.linkedin:hover { background: linear-gradient(135deg, #0077b5, #0099d4); box-shadow: 0 10px 25px rgba(0, 119, 181, 0.3); }
+        .footer-social-link.youtube:hover { background: linear-gradient(135deg, #ff0000, #ff4444); box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3); }
+        .footer-social-link.tiktok:hover { background: linear-gradient(135deg, #000000, #ff0050); box-shadow: 0 10px 25px rgba(255, 0, 80, 0.3); }
 
         .footer-divider {
             height: 1px;
@@ -1771,286 +1830,61 @@
             text-decoration: underline;
         }
 
-        /* Responsive Design - ENHANCED FOR LOGIN MODAL */
+        /* Responsive */
         @media (max-width: 1200px) {
-            .footer-main {
-                grid-template-columns: 1fr 1fr;
-                gap: 2.5rem;
-            }
-
-            .footer-stats {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .contact-info {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            }
+            .footer-main { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+            .footer-stats { grid-template-columns: 1fr 1fr; }
         }
 
         @media (max-width: 1024px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .header-stats {
-                gap: 2rem;
-            }
-
-            .schools-grid {
-                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-                gap: 2rem;
-            }
-
-            .footer-main {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .footer-brand {
-                padding-right: 0;
-            }
-
-            .footer-stats {
-                grid-template-columns: 1fr 1fr 1fr;
-            }
-
-            .about-values {
-                grid-template-columns: 1fr;
-            }
-
-            .about-team {
-                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            }
-
-            .contact-info {
-                grid-template-columns: 1fr;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
+            .header h1 { font-size: 2rem; }
+            .header-stats { gap: 2rem; }
+            .schools-grid { grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+            .footer-main { grid-template-columns: 1fr; gap: 2rem; }
+            .footer-brand { padding-right: 0; }
+            .footer-stats { grid-template-columns: 1fr 1fr 1fr; }
+            .about-values { grid-template-columns: 1fr; }
+            .contact-info { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 768px) {
-            .header {
-                padding: 2rem 0 3rem;
-            }
-
-            .header h1 {
-                font-size: 1.8rem;
-            }
-
-            .header p {
-                font-size: 1.1rem;
-            }
-
-            .header-stats {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-
-            .section-title h2 {
-                font-size: 2rem;
-            }
-
-            .schools-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .school-card {
-                margin: 0 1rem;
-            }
-
-            .modal-content {
-                width: 95%;
-                margin: 5% auto;
-                border-radius: 20px;
-                max-width: 600px;
-            }
-
-            .modal-header {
-                padding: 1.5rem 1rem 1rem;
-                border-radius: 20px 20px 0 0;
-            }
-
-            .modal-body {
-                padding: 1.5rem 1rem;
-            }
-
-            .password-input {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .password-input input {
-                width: 100%;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            /* ENHANCED MOBILE LOGIN MODAL STYLES */
-            .login-modal {
-                padding: 0.5rem;
-            }
-
-            .login-modal-content {
-                max-width: none;
-                width: 100%;
-                max-height: calc(100vh - 1rem);
-                border-radius: 16px;
-            }
-
-            .login-header {
-                padding: 1.5rem;
-                border-radius: 16px 16px 0 0;
-            }
-
-            .login-icon {
-                width: 64px;
-                height: 64px;
-                font-size: 2rem;
-            }
-
-            .login-title {
-                font-size: 1.5rem;
-            }
-
-            .login-subtitle {
-                font-size: 0.9rem;
-            }
-
-            .login-body {
-                padding: 1.5rem;
-            }
-
-            .form-input {
-                padding: 0.875rem;
-                font-size: 16px;
-            }
-
-            .footer {
-                padding: 3rem 0 2rem;
-            }
-
-            .footer-stats {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .footer-social-links {
-                justify-content: center;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .footer-legal-links {
-                justify-content: center;
-            }
-
-            .about-values {
-                grid-template-columns: 1fr;
-            }
-
-            .about-team {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            }
-
-            .contact-info {
-                grid-template-columns: 1fr;
-            }
+            .header { padding: 2rem 0 3rem; }
+            .header h1 { font-size: 1.8rem; }
+            .header p { font-size: 1.1rem; }
+            .header-stats { flex-direction: column; gap: 1.5rem; }
+            .section-title h2 { font-size: 2rem; }
+            .schools-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .school-card { margin: 0 1rem; }
+            .modal-content { width: 95%; margin: 5% auto; border-radius: 20px; max-width: 600px; }
+            .modal-header { padding: 1.5rem 1rem 1rem; border-radius: 20px 20px 0 0; }
+            .modal-body { padding: 1.5rem 1rem; }
+            .password-input { flex-direction: column; gap: 1rem; }
+            .password-input input { width: 100%; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .login-modal, .school-login-modal { padding: 0.5rem; }
+            .login-modal-content, .school-login-content { max-width: none; width: 100%; max-height: calc(100vh - 1rem); border-radius: 16px; }
+            .login-header, .school-login-header { padding: 1.5rem; border-radius: 16px 16px 0 0; }
+            .login-body, .school-login-body { padding: 1.5rem; }
+            .form-input { padding: 0.875rem; font-size: 16px; }
+            .footer { padding: 3rem 0 2rem; }
+            .footer-stats { grid-template-columns: 1fr 1fr; }
+            .footer-social-links { justify-content: center; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .footer-legal-links { justify-content: center; }
         }
 
         @media (max-width: 480px) {
-            .header {
-                padding: 1.5rem 0 2rem;
-            }
-
-            .header h1 {
-                font-size: 1.5rem;
-            }
-
-            .container {
-                padding: 2rem 0.5rem;
-            }
-
-            .school-content {
-                padding: 1.5rem;
-            }
-
-            .modal-header h2 {
-                font-size: 1.5rem;
-            }
-
-            .footer-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-stat {
-                padding: 1rem;
-            }
-
-            /* ULTRA-SMALL SCREEN LOGIN MODAL ADJUSTMENTS */
-            .login-modal {
-                padding: 0.25rem;
-                align-items: flex-start;
-                padding-top: 1rem;
-            }
-
-            .login-modal-content {
-                border-radius: 12px;
-            }
-
-            .login-header {
-                padding: 1rem;
-                border-radius: 12px 12px 0 0;
-            }
-
-            .login-icon {
-                width: 56px;
-                height: 56px;
-                font-size: 1.75rem;
-            }
-
-            .login-title {
-                font-size: 1.25rem;
-            }
-
-            .login-body {
-                padding: 1rem;
-            }
-
-            .login-form {
-                gap: 1.25rem;
-            }
-
-            .form-group {
-                gap: 0.375rem;
-            }
-
-            .value-card, .contact-card, .team-member {
-                padding: 1.5rem;
-            }
-
-            .value-icon, .contact-icon {
-                width: 56px;
-                height: 56px;
-                font-size: 1.5rem;
-            }
-
-            .team-avatar {
-                width: 64px;
-                height: 64px;
-                font-size: 1.5rem;
-            }
-
-            .contact-info {
-                grid-template-columns: 1fr;
-            }
+            .header { padding: 1.5rem 0 2rem; }
+            .header h1 { font-size: 1.5rem; }
+            .container { padding: 2rem 0.5rem; }
+            .school-content { padding: 1.5rem; }
+            .modal-header h2 { font-size: 1.5rem; }
+            .footer-stats { grid-template-columns: 1fr; }
+            .login-modal, .school-login-modal { padding: 0.25rem; align-items: flex-start; padding-top: 1rem; }
+            .login-modal-content, .school-login-content { border-radius: 12px; }
+            .login-title, .school-login-title { font-size: 1.25rem; }
+            .login-body, .school-login-body { padding: 1rem; }
         }
 
         /* Loading animations */
@@ -2064,13 +1898,9 @@
         }
 
         @keyframes cardSlideIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Schools loading state */
         .schools-loading {
             display: flex;
             flex-direction: column;
@@ -2081,6 +1911,7 @@
             grid-column: 1 / -1;
             color: var(--text-gray);
         }
+
         .schools-loading .loading-ring {
             width: 56px;
             height: 56px;
@@ -2089,7 +1920,9 @@
             border-radius: 50%;
             animation: spin 0.9s linear infinite;
         }
+
         .schools-loading p { font-size: 1.1rem; font-weight: 500; }
+
         .schools-empty {
             display: flex;
             flex-direction: column;
@@ -2100,7 +1933,9 @@
             color: var(--text-gray);
             text-align: center;
         }
+
         .schools-empty i { font-size: 3rem; color: var(--neutral-200); }
+
         .school-initials {
             width: 100%;
             height: 240px;
@@ -2114,14 +1949,30 @@
             text-shadow: 0 2px 8px rgba(0,0,0,0.2);
             position: relative;
         }
-        .detail-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+
+        .school-abbrev-badge {
+            display: inline-block;
+            background: var(--gradient-primary);
+            color: var(--white);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.05em;
         }
-        @media (max-width: 560px) { .detail-grid { grid-template-columns: 1fr; } }
-        .detail-full { grid-column: 1 / -1; }
+
+        .school-contact-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .school-contact-row i { width: 16px; color: var(--accent-blue); }
+
         .school-description-box {
             background: var(--light-blue);
             border-radius: 16px;
@@ -2133,7 +1984,6 @@
             line-height: 1.7;
         }
 
-        /* Scroll animations */
         @media (prefers-reduced-motion: no-preference) {
             .scroll-animate {
                 opacity: 0;
@@ -2151,7 +2001,6 @@
             display: none !important;
         }
 
-        /* Loading spinner */
         .loading-spinner {
             display: inline-block;
             width: 20px;
@@ -2165,33 +2014,6 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-
-        /* Card abbrev badge */
-        .school-abbrev-badge {
-            display: inline-block;
-            background: var(--gradient-primary);
-            color: var(--white);
-            font-size: 0.8rem;
-            font-weight: 700;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            margin-bottom: 0.75rem;
-            letter-spacing: 0.05em;
-        }
-
-        /* Card contact row */
-        .school-contact-row {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-light);
-            font-size: 0.9rem;
-            margin-bottom: 0.4rem;
-        }
-        .school-contact-row i {
-            width: 16px;
-            color: var(--accent-blue);
-        }
     </style>
     <meta property="og:image" content="https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?auto=compress&cs=tinysrgb&w=1200">
     <meta name="twitter:card" content="summary_large_image">
@@ -2204,29 +2026,27 @@
             <div class="nav-brand">
                 <div class="nav-logos">
                     <div class="nav-logo">
-                        <i class="fas fa-graduation-cap"></i>
+                        <img src="CITY HALL LOGO.png" alt="City Hall Logo" class="nav-logo-img">
                     </div>
                     <div class="nav-logo">
-                        <i class="fas fa-book-open"></i>
+                        <img src="CEEDO NEW LOGO 2026.png" alt="CEEDO Logo" class="nav-logo-img">
                     </div>
                 </div>
-                <div class="nav-site-name">UTOWN DATA NAME</div>
+                <div class="nav-site-name" id="navSiteName">UTOWN DATA NAME</div>
             </div>
-            
+
             <ul class="nav-menu">
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#schools">Schools</a></li>
                 <li><a onclick="openAboutModal()">About Us</a></li>
                 <li><a onclick="openContactModal()">Contact Us</a></li>
             </ul>
-            
-            <!-- Sign In Button (shown when not logged in) -->
+
             <button class="sign-in-btn" onclick="handleSignIn()" id="signInButton">
                 <i class="fas fa-user"></i>
                 SIGN IN
             </button>
 
-            <!-- User Dropdown (shown when logged in) -->
             <div class="user-dropdown hidden" id="userDropdown">
                 <button class="user-dropdown-btn" onclick="toggleUserDropdown()" id="userDropdownBtn">
                     <i class="fas fa-user"></i>
@@ -2244,14 +2064,14 @@
                     </div>
                 </div>
             </div>
-            
+
             <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
         </div>
-        
+
         <div class="mobile-menu" id="mobileMenu">
             <ul>
                 <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
@@ -2260,12 +2080,10 @@
                 <li><a onclick="openContactModal(); closeMobileMenu()">Contact Us</a></li>
             </ul>
             <div class="mobile-sign-in">
-                <!-- Mobile Sign In Button (shown when not logged in) -->
                 <button class="sign-in-btn" onclick="handleSignIn()" id="mobileSignInButton">
                     <i class="fas fa-user"></i>
                     SIGN IN
                 </button>
-                <!-- Mobile User Dropdown (shown when logged in) -->
                 <div class="user-dropdown hidden" id="mobileUserDropdown">
                     <button class="user-dropdown-btn" onclick="toggleMobileUserDropdown()" id="mobileUserDropdownBtn">
                         <i class="fas fa-user"></i>
@@ -2323,7 +2141,6 @@
                 </button>
                 <div class="filter-dropdown-content" id="filterDropdown">
                     <div class="filter-option active-filter" onclick="filterSchools('all')">All Schools</div>
-                    <!-- Dynamic school filter options injected by loadSchoolsFromFirestore() -->
                 </div>
             </div>
         </div>
@@ -2346,7 +2163,7 @@
                         <span>UTWON DATA NAME</span>
                     </div>
                     <p class="footer-description">
-                       This platform serves as the official digital registry for student enrollment across Balanga City, providing real-time data on student populations, school capacities, and educational growth within Bataan’s capital. We are dedicated to maintaining transparency and data-driven insights to help the community better support our learners and institutions.
+                       This platform serves as the official digital registry for student enrollment across Balanga City, providing real-time data on student populations, school capacities, and educational growth within Bataan's capital. We are dedicated to maintaining transparency and data-driven insights to help the community better support our learners and institutions.
                     </p>
                     <div class="footer-stats">
                         <div class="footer-stat">
@@ -2367,27 +2184,21 @@
                 <div class="footer-contact">
                     <h3><i class="fas fa-address-book"></i> Contact Info</h3>
                     <div class="footer-contact-item">
-                        <div class="footer-contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
+                        <div class="footer-contact-icon"><i class="fas fa-map-marker-alt"></i></div>
                         <div class="footer-contact-content">
                             <h4>Location</h4>
                             <p>2nd Floor Balanga City Hall</p>
                         </div>
                     </div>
                     <div class="footer-contact-item">
-                        <div class="footer-contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
+                        <div class="footer-contact-icon"><i class="fas fa-phone"></i></div>
                         <div class="footer-contact-content">
                             <h4>Phone & Fax</h4>
                             <p>+63 960 568 3438</p>
                         </div>
                     </div>
                     <div class="footer-contact-item">
-                        <div class="footer-contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
+                        <div class="footer-contact-icon"><i class="fas fa-envelope"></i></div>
                         <div class="footer-contact-content">
                             <h4>Email Us</h4>
                             <p>ceedo@cityofbalanga.gov.ph</p>
@@ -2429,9 +2240,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close" onclick="closeModal('aboutModal')">&times;</span>
-                <div class="school-logo">
-                    <i class="fas fa-users"></i>
-                </div>
+                <div class="school-logo"><i class="fas fa-users"></i></div>
                 <h2>About UTWON DATA NAME</h2>
                 <p class="modal-subtitle">Transforming Lives Through Quality Education</p>
             </div>
@@ -2441,66 +2250,48 @@
                         <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                     </div>
-
                     <div class="about-values">
                         <div class="value-card">
-                            <div class="value-icon">
-                                <i class="fas fa-star"></i>
-                            </div>
+                            <div class="value-icon"><i class="fas fa-star"></i></div>
                             <h4>Excellence</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                         </div>
                         <div class="value-card">
-                            <div class="value-icon">
-                                <i class="fas fa-lightbulb"></i>
-                            </div>
+                            <div class="value-icon"><i class="fas fa-lightbulb"></i></div>
                             <h4>Innovation</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                         </div>
                         <div class="value-card">
-                            <div class="value-icon">
-                                <i class="fas fa-heart"></i>
-                            </div>
+                            <div class="value-icon"><i class="fas fa-heart"></i></div>
                             <h4>Integrity</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                         </div>
                         <div class="value-card">
-                            <div class="value-icon">
-                                <i class="fas fa-globe"></i>
-                            </div>
+                            <div class="value-icon"><i class="fas fa-globe"></i></div>
                             <h4>Global Perspective</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                         </div>
                     </div>
-
                     <div class="info-section">
                         <h3 style="margin-bottom: 1.5rem; color: var(--primary-blue);"><i class="fas fa-users-cog"></i> Leadership Team</h3>
                         <div class="about-team">
                             <div class="team-member">
-                                <div class="team-avatar">
-                                    <i class="fas fa-user-tie"></i>
-                                </div>
+                                <div class="team-avatar"><i class="fas fa-user-tie"></i></div>
                                 <h5>Dr. Sarah Mitchell</h5>
                                 <p class="role">Chief Executive Officer</p>
                             </div>
                             <div class="team-member">
-                                <div class="team-avatar">
-                                    <i class="fas fa-chalkboard-teacher"></i>
-                                </div>
+                                <div class="team-avatar"><i class="fas fa-chalkboard-teacher"></i></div>
                                 <h5>Prof. Michael Chen</h5>
                                 <p class="role">Academic Director</p>
                             </div>
                             <div class="team-member">
-                                <div class="team-avatar">
-                                    <i class="fas fa-laptop"></i>
-                                </div>
+                                <div class="team-avatar"><i class="fas fa-laptop"></i></div>
                                 <h5>Dr. Emily Rodriguez</h5>
                                 <p class="role">Technology Director</p>
                             </div>
                             <div class="team-member">
-                                <div class="team-avatar">
-                                    <i class="fas fa-handshake"></i>
-                                </div>
+                                <div class="team-avatar"><i class="fas fa-handshake"></i></div>
                                 <h5>James Thompson</h5>
                                 <p class="role">Student Affairs Director</p>
                             </div>
@@ -2516,53 +2307,33 @@
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close" onclick="closeModal('contactModal')">&times;</span>
-                <div class="school-logo">
-                    <i class="fas fa-envelope"></i>
-                </div>
+                <div class="school-logo"><i class="fas fa-envelope"></i></div>
                 <h2>Contact Us</h2>
                 <p class="modal-subtitle">Get in Touch - We're Here to Help</p>
             </div>
             <div class="modal-body">
                 <div class="contact-info">
                     <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
                         <h4>Call Us</h4>
-                        <p>Main Office: +63 960 568 3438<br>
-                        Admissions: +63 960 568 3439<br>
-                        Emergency: +63 960 568 3440</p>
+                        <p>Main Office: +63 960 568 3438<br>Admissions: +63 960 568 3439<br>Emergency: +63 960 568 3440</p>
                     </div>
                     <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                         <h4>Email Us</h4>
-                        <p>General: ceedo@cityofbalanga.gov.ph<br>
-                        Admissions: admissions@ceedo.gov.ph<br>
-                        Support: support@ceedo.gov.ph</p>
+                        <p>General: ceedo@cityofbalanga.gov.ph<br>Admissions: admissions@ceedo.gov.ph<br>Support: support@ceedo.gov.ph</p>
                     </div>
                     <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
                         <h4>Visit Us</h4>
-                        <p>2nd Floor Balanga City Hall<br>
-                        Balanga City, Bataan<br>
-                        Philippines</p>
+                        <p>2nd Floor Balanga City Hall<br>Balanga City, Bataan<br>Philippines</p>
                     </div>
                     <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
+                        <div class="contact-icon"><i class="fas fa-clock"></i></div>
                         <h4>Office Hours</h4>
-                        <p>Monday - Thursday: 8:00 AM - 6:30 PM<br>
-                        Friday: Closed<br>
-                        Saturday: Closed<br>
-                        Sunday: Closed</p>
+                        <p>Monday - Thursday: 8:00 AM - 6:30 PM<br>Friday: Closed<br>Saturday: Closed<br>Sunday: Closed</p>
                     </div>
                 </div>
-
                 <div class="contact-form">
                     <h3><i class="fas fa-paper-plane"></i> Send Us a Message</h3>
                     <form onsubmit="handleContactSubmit(event)">
@@ -2598,7 +2369,6 @@
                         </button>
                     </form>
                 </div>
-
                 <div class="social-section">
                     <h3><i class="fas fa-share-alt"></i> Follow Us</h3>
                     <div class="social-links">
@@ -2617,9 +2387,7 @@
         <div class="login-modal-content">
             <div class="login-header">
                 <span class="login-close" onclick="closeLoginModal()">&times;</span>
-                <div class="login-icon">
-                    <i class="fas fa-user-graduate"></i>
-                </div>
+                <div class="login-icon"><i class="fas fa-user-graduate"></i></div>
                 <h2 class="login-title">Welcome Back</h2>
                 <p class="login-subtitle">Sign in to your UTWON DATA NAME account</p>
             </div>
@@ -2638,9 +2406,39 @@
                         Sign In
                     </button>
                 </form>
-                
                 <div class="login-footer">
                     <p><a href="#" onclick="handleForgotPassword()">Forgot your password?</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- School Login Modal -->
+    <div id="schoolLoginModal" class="school-login-modal">
+        <div class="school-login-content">
+            <div class="school-login-header">
+                <span class="school-login-close" onclick="closeSchoolLoginModal()">&times;</span>
+                <div class="school-login-icon"><i class="fas fa-school"></i></div>
+                <h2 class="school-login-title" id="schoolLoginTitle">Access School Portal</h2>
+                <p class="school-login-subtitle" id="schoolLoginSubtitle">Please enter your credentials to access the administrative portal</p>
+            </div>
+            <div class="school-login-body">
+                <form class="school-login-form" onsubmit="handleSchoolLogin(event)">
+                    <div class="form-group">
+                        <label for="schoolUsername" class="form-label">Username</label>
+                        <input type="text" id="schoolUsername" class="form-input" placeholder="Enter your username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="schoolPassword" class="form-label">Password</label>
+                        <input type="password" id="schoolPassword" class="form-input" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="login-btn" id="schoolLoginSubmitBtn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Access Portal
+                    </button>
+                </form>
+                <div class="login-footer">
+                    <p>Need assistance? Contact the school administrator</p>
                 </div>
             </div>
         </div>
@@ -2651,17 +2449,12 @@
         <div class="modal-content">
             <div class="modal-header" id="schoolModalHeader">
                 <span class="close" onclick="closeModal('schoolDetailModal')">&times;</span>
-                <div class="school-logo" id="schoolModalLogo">
-                    <i class="fas fa-school"></i>
-                </div>
+                <div class="school-logo" id="schoolModalLogo"><i class="fas fa-school"></i></div>
                 <h2 id="schoolModalName">School Name</h2>
                 <p class="modal-subtitle" id="schoolModalSubtitle"></p>
             </div>
             <div class="modal-body">
-                <!-- Description -->
                 <div class="school-description-box" id="schoolModalDescription" style="display:none;"></div>
-
-                <!-- Details -->
                 <div class="info-grid">
                     <div class="info-section">
                         <div class="info-item" id="schoolModalPresident" style="display:none;">
@@ -2701,8 +2494,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Stats -->
                 <div class="stats-grid" id="schoolModalStatsGrid" style="display:none;">
                     <div class="stat-card">
                         <div class="stat-number" id="schoolModalTeaching">0</div>
@@ -2713,19 +2504,16 @@
                         <div class="stat-label">Non-Teaching Staff</div>
                     </div>
                 </div>
-
-                <!-- Admin Portal Access -->
-                <div class="password-section">
+                <div class="password-section" id="schoolAccessSection">
                     <h3><i class="fas fa-lock"></i> Administrative Access</h3>
-                    <p>Enter password to access administrative portal</p>
-                    <div class="password-input" style="margin-bottom:0.6rem;"><input type="text" id="schoolModalFullName" placeholder="Enter your full name" style="flex:1; border-radius:8px; border:1px solid #d1d5db; padding:0.6rem 1rem; font-size:0.95rem; outline:none;"></div>
+                    <p>Access the school administrative portal</p>
                     <div class="password-input">
-                        <input type="password" id="schoolModalPasswordInput" placeholder="Enter password">
-                        <button class="password-btn" onclick="checkSchoolPassword()">Access Portal</button>
+                        <button class="password-btn" onclick="openSchoolLoginModal()">
+                            <i class="fas fa-key"></i>
+                            Access Portal
+                        </button>
                     </div>
                 </div>
-
-                <!-- Social -->
                 <div class="social-section">
                     <h3><i class="fas fa-share-alt"></i> Connect With Us</h3>
                     <div class="social-links">
@@ -2742,7 +2530,7 @@
     <!-- Firebase Module Script -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getFirestore, collection, query, where, getDocs, orderBy, addDoc, setDoc, doc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getFirestore, collection, query, where, getDocs, orderBy, addDoc, setDoc, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
         const firebaseConfig = {
             apiKey: "AIzaSyAburxavDgOMyvljxW_I40EPiRva3tj4ag",
@@ -2766,90 +2554,42 @@
         window.firebaseAddDoc = addDoc;
         window.firebaseSetDoc = setDoc;
         window.firebaseDoc = doc;
+        window.firebaseGetDoc = getDoc;
 
-        // Load schools once Firebase is ready
         window.addEventListener('DOMContentLoaded', () => {
             loadSchoolsFromFirestore();
-        });
-    </script>
-
-    <script>
-        // ─── Global state ────────────────────────────────────────────────────────
-        let currentUser = null;
-        let allSchools = [];             // all fetched school objects
-        let currentSchoolPassword = ''; // password of the currently-open school modal
-        let activeFilter = 'all';        // currently selected filter key
-
-        // ─── Session check on load ───────────────────────────────────────────────
-        document.addEventListener('DOMContentLoaded', function () {
-            checkExistingSession();
-            initializeEventListeners();
+            loadAndApplySettings();
         });
 
-        // ─── Log activity to Firestore ──────────────────────────────────────────
-        async function logActivityToFirestore(user, action) {
+        async function loadAndApplySettings() {
             try {
-                if (!window.firebaseDB || !window.firebaseSetDoc) return;
-                const activityRef = window.firebaseCollection(window.firebaseDB, 'ActivityLog');
-
-                // Get current count to auto-increment ActivityID
-                const snapshot = await window.firebaseGetDocs(activityRef);
-                const nextNum = snapshot.size + 1;
-                const activityId = 'ActivityID_' + String(nextNum).padStart(4, '0');
-
-                // Readable date & time
-                const now = new Date();
-                const readable = now.toLocaleDateString('en-PH', {
-                    year: 'numeric', month: 'long', day: 'numeric',
-                    hour: '2-digit', minute: '2-digit', second: '2-digit',
-                    hour12: true
+                const settingsRef = collection(db, 'Settings');
+                const snap = await getDocs(settingsRef);
+                const settings = {};
+                snap.forEach(d => {
+                    const data = d.data();
+                    settings[d.id] = data.value !== undefined ? data.value : (Object.values(data)[0] || '');
                 });
-
-                const fullName = user
-                    ? ((user.fname && user.lname) ? user.fname + ' ' + user.lname : (user.fname || user.username))
-                    : 'Guest';
-
-                const docRef = window.firebaseDoc(window.firebaseDB, 'ActivityLog', activityId);
-                await window.firebaseSetDoc(docRef, {
-                    ActivityID: activityId,
-                    Location: 'index.html',
-                    AccountRole: user ? 'superadmin' : 'guest',
-                    UserID: user ? (user.id || '') : '',
-                    Username: user ? (user.username || '') : 'guest',
-                    Description: fullName + ' ' + (action || 'has Login') + ' at ' + readable,
-                    TimeStamp: now
-                });
-
-                console.log('Activity logged:', activityId);
-            } catch (err) {
-                console.error('Failed to log activity:', err);
-            }
-        }
-
-        function checkExistingSession() {
-            const storedUser = localStorage.getItem('utownUser');
-            if (storedUser) {
-                try {
-                    currentUser = JSON.parse(storedUser);
-                    updateUIForLoggedInUser(currentUser);
-                } catch (e) {
-                    localStorage.removeItem('utownUser');
+                if (settings.SystemName) {
+                    const navEl = document.getElementById('navSiteName');
+                    if (navEl) navEl.textContent = settings.SystemName;
+                    document.title = settings.SystemName;
                 }
+            } catch (e) {
+                console.error('loadAndApplySettings error:', e);
             }
         }
 
-        // ─── Load schools from Firestore ────────────────────────────────────────
         async function loadSchoolsFromFirestore() {
             const grid = document.getElementById('schoolsGrid');
             try {
-                // Wait until Firebase is ready (injected by the module script)
                 if (!window.firebaseDB) {
                     setTimeout(loadSchoolsFromFirestore, 300);
                     return;
                 }
 
-                const colRef = window.firebaseCollection(window.firebaseDB, 'ListofSchool');
-                const snapshot = await window.firebaseGetDocs(colRef);
+                const colRef = collection(db, 'ListofSchool');
+                const snapshot = await getDocs(colRef);
 
                 if (snapshot.empty) {
                     grid.innerHTML = `
@@ -2860,26 +2600,21 @@
                     return;
                 }
 
-                allSchools = [];
-                snapshot.forEach(doc => {
-                    allSchools.push({ id: doc.id, ...doc.data() });
+                window.allSchools = [];
+                snapshot.forEach(d => {
+                    window.allSchools.push({ id: d.id, ...d.data() });
                 });
 
-                // Sort alphabetically by schoolname
-                allSchools.sort((a, b) => (a.schoolname || '').localeCompare(b.schoolname || ''));
+                window.allSchools.sort((a, b) => (a.schoolname || '').localeCompare(b.schoolname || ''));
 
-                // Update header & footer counts
-                const activeCount = allSchools.filter(s => !s.deletestats).length;
+                const activeCount = window.allSchools.filter(s => !s.deletestats).length;
                 const countEl = document.getElementById('headerSchoolCount');
                 const footerEl = document.getElementById('footerSchoolCount');
                 if (countEl) countEl.textContent = activeCount;
                 if (footerEl) footerEl.textContent = activeCount;
 
-                // Populate filter dropdown with school abbreviations
                 populateFilterDropdown();
-
-                // Render cards
-                renderSchoolCards(allSchools);
+                renderSchoolCards(window.allSchools);
 
             } catch (err) {
                 console.error('Error loading schools:', err);
@@ -2891,16 +2626,13 @@
             }
         }
 
-        // ─── Populate filter dropdown ────────────────────────────────────────────
         function populateFilterDropdown() {
             const dropdown = document.getElementById('filterDropdown');
-
-            // Remove all existing dynamic options (keep "All Schools")
             const existing = dropdown.querySelectorAll('.filter-option:not(:first-child)');
             existing.forEach(el => el.remove());
 
-            allSchools.forEach(school => {
-                if (school.deletestats) return; // skip soft-deleted
+            (window.allSchools || []).forEach(school => {
+                if (school.deletestats) return;
                 const abbrev = school.schoolabbrev || school.schoolname || school.id;
                 const option = document.createElement('div');
                 option.className = 'filter-option';
@@ -2911,8 +2643,7 @@
             });
         }
 
-        // ─── Render school cards ─────────────────────────────────────────────────
-        function renderSchoolCards(schools) {
+        window.renderSchoolCards = function(schools) {
             const grid = document.getElementById('schoolsGrid');
             grid.innerHTML = '';
 
@@ -2932,29 +2663,24 @@
                 grid.appendChild(card);
             });
 
-            // Trigger entrance animations
             const cards = grid.querySelectorAll('.school-card');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry, i) => {
                     if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.classList.add('animate');
-                        }, i * 100);
+                        setTimeout(() => entry.target.classList.add('animate'), i * 100);
                         observer.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
             cards.forEach(card => observer.observe(card));
-        }
+        };
 
-        // ─── Create a single school card element ────────────────────────────────
         function createSchoolCard(school, index) {
             const card = document.createElement('div');
             card.className = 'school-card';
             card.setAttribute('data-school-id', school.id);
 
-            // Card gradient colors cycling
             const gradients = [
                 'linear-gradient(135deg, #1e40af 0%, #3b82f6 100%)',
                 'linear-gradient(135deg, #065f46 0%, #10b981 100%)',
@@ -2971,17 +2697,12 @@
             const name = school.schoolname || 'Unknown School';
             const address = school.address || '';
             const description = school.description || '';
-            const president = school.schoolpres || '';
-            const email = school.email_add || '';
-            const contact = school.contact_number || '';
 
             card.innerHTML = `
                 <div class="school-image" style="background: ${grad};">
                     <div class="school-initials">${abbrev}</div>
                     <div class="school-image-overlay">
-                        <div class="school-icon">
-                            <i class="fas fa-school"></i>
-                        </div>
+                        <div class="school-icon"><i class="fas fa-school"></i></div>
                     </div>
                 </div>
                 <div class="school-content">
@@ -2993,13 +2714,96 @@
             `;
 
             card.addEventListener('click', () => openSchoolModal(school));
-
             return card;
         }
+    </script>
 
-        // ─── Open school detail modal ────────────────────────────────────────────
+    <script>
+        let currentUser = null;
+        let allSchools = [];
+        let currentSchool = null;
+        let activeFilter = 'all';
+
+        document.addEventListener('DOMContentLoaded', function () {
+            checkExistingSession();
+            initializeEventListeners();
+        });
+
+        async function logActivityToFirestore(user, action) {
+            try {
+                if (!window.firebaseDB || !window.firebaseSetDoc) return;
+                const activityRef = window.firebaseCollection(window.firebaseDB, 'ActivityLog');
+                const snapshot = await window.firebaseGetDocs(activityRef);
+                const nextNum = snapshot.size + 1;
+                const activityId = 'ActivityID_' + String(nextNum).padStart(4, '0');
+                const now = new Date();
+                const readable = now.toLocaleDateString('en-PH', {
+                    year: 'numeric', month: 'long', day: 'numeric',
+                    hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true
+                });
+                const fullName = user
+                    ? ((user.fname && user.lname) ? user.fname + ' ' + user.lname : (user.fname || user.username))
+                    : 'Guest';
+                const docRef = window.firebaseDoc(window.firebaseDB, 'ActivityLog', activityId);
+                await window.firebaseSetDoc(docRef, {
+                    ActivityID: activityId,
+                    Location: 'index.html',
+                    AccountRole: user ? 'superadmin' : 'guest',
+                    UserID: user ? (user.id || '') : '',
+                    Username: user ? (user.username || '') : 'guest',
+                    Description: fullName + ' ' + (action || 'has Login') + ' at ' + readable,
+                    TimeStamp: now
+                });
+            } catch (err) {
+                console.error('Failed to log activity:', err);
+            }
+        }
+
+        function checkExistingSession() {
+            const storedUser = localStorage.getItem('utownUser');
+            if (storedUser) {
+                try {
+                    currentUser = JSON.parse(storedUser);
+                    updateUIForLoggedInUser(currentUser);
+                } catch (e) {
+                    localStorage.removeItem('utownUser');
+                }
+            }
+        }
+
+        function filterSchools(schoolId, label) {
+            logActivityToFirestore(currentUser, 'has filtered Schools by ' + (label || 'All Schools'));
+            activeFilter = schoolId;
+
+            const filterText = document.getElementById('filter-text');
+            filterText.textContent = label || 'All Schools';
+
+            document.querySelectorAll('.filter-option').forEach(opt => opt.classList.remove('active-filter'));
+            if (schoolId === 'all') {
+                document.querySelector('.filter-option').classList.add('active-filter');
+            } else {
+                const match = document.querySelector(`.filter-option[data-school-id="${schoolId}"]`);
+                if (match) match.classList.add('active-filter');
+            }
+
+            const schools = window.allSchools || [];
+            if (schoolId === 'all') {
+                window.renderSchoolCards(schools);
+            } else {
+                window.renderSchoolCards(schools.filter(s => s.id === schoolId));
+            }
+
+            document.getElementById('filterDropdown').classList.remove('show');
+        }
+
+        function toggleDropdown() {
+            document.getElementById('filterDropdown').classList.toggle('show');
+        }
+
         function openSchoolModal(school) {
             logActivityToFirestore(currentUser, 'has viewed ' + (school.schoolname || 'a school') + ' School Information');
+            currentSchool = school;
+
             const name = school.schoolname || 'Unknown School';
             const abbrev = school.schoolabbrev || '';
             const description = school.description || '';
@@ -3014,7 +2818,6 @@
             document.getElementById('schoolModalName').textContent = name;
             document.getElementById('schoolModalSubtitle').textContent = abbrev;
 
-            // Description
             const descBox = document.getElementById('schoolModalDescription');
             if (description) {
                 descBox.textContent = description;
@@ -3023,7 +2826,6 @@
                 descBox.style.display = 'none';
             }
 
-            // Info items
             function setInfoItem(itemId, valueId, value) {
                 const item = document.getElementById(itemId);
                 const val = document.getElementById(valueId);
@@ -3041,7 +2843,6 @@
             setInfoItem('schoolModalContact', 'schoolModalContactValue', contact);
             setInfoItem('schoolModalLandline', 'schoolModalLandlineValue', landline);
 
-            // Stats
             const statsGrid = document.getElementById('schoolModalStatsGrid');
             if (teaching !== null || nonTeaching !== null) {
                 document.getElementById('schoolModalTeaching').textContent = teaching !== null ? teaching : '—';
@@ -3051,108 +2852,102 @@
                 statsGrid.style.display = 'none';
             }
 
-            // Store password for checkSchoolPassword()
-            currentSchoolPassword = school.password || '';
-
-            // Clear password input
-            document.getElementById('schoolModalPasswordInput').value = '';
-            const fnInput = document.getElementById('schoolModalFullName');
-            if (fnInput) fnInput.value = '';
-
-            // Hide admin access section if superadmin is already logged in
-            const pwSection = document.querySelector('.password-section');
-            if (pwSection) pwSection.style.display = currentUser ? 'none' : 'block';
+            const accessSection = document.getElementById('schoolAccessSection');
+            if (accessSection) accessSection.style.display = currentUser ? 'none' : 'block';
 
             document.getElementById('schoolDetailModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
 
-        // ─── Check school password ────────────────────────────────────────────────
-        function checkSchoolPassword() {
-            const nameInput = document.getElementById('schoolModalFullName');
-            const fullName = nameInput ? nameInput.value.trim() : '';
-            const input = document.getElementById('schoolModalPasswordInput');
-            const entered = input.value;
+        function openSchoolLoginModal() {
+            if (!currentSchool) return;
+            const schoolName = currentSchool.schoolname || 'School';
+            document.getElementById('schoolLoginTitle').textContent = `Access ${schoolName} Portal`;
+            document.getElementById('schoolLoginSubtitle').textContent = `Enter your credentials to access the administrative portal for ${schoolName}`;
+            document.getElementById('schoolUsername').value = '';
+            document.getElementById('schoolPassword').value = '';
+            document.getElementById('schoolLoginModal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
 
-            if (!fullName) {
-                showToast('Please enter your full name', 'error');
-                return;
-            }
+        function closeSchoolLoginModal() {
+            document.getElementById('schoolLoginModal').classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
 
-            if (!entered) {
-                showToast('Please enter a password', 'error');
-                return;
-            }
+        async function handleSchoolLogin(event) {
+            event.preventDefault();
+            if (!currentSchool) { showToast('No school selected', 'error'); return; }
 
-            if (entered === currentSchoolPassword) {
-                localStorage.setItem('portalUserName', fullName);
-                showToast('Access Granted! Redirecting to school information portal...');
-                input.value = '';
-                if (nameInput) nameInput.value = '';
-                setTimeout(() => {
-                    window.location.href = 'schoolinfo.html';
-                }, 1200);
-            } else {
-                showToast('Access Denied! Invalid password.', 'error');
-                input.value = '';
+            const username = document.getElementById('schoolUsername').value.trim();
+            const password = document.getElementById('schoolPassword').value;
+            const submitBtn = document.getElementById('schoolLoginSubmitBtn');
+
+            if (!username || !password) { showToast('Please enter both username and password', 'error'); return; }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<div class="loading-spinner"></div> Authenticating...';
+
+            try {
+                const schoolsRef = window.firebaseCollection(window.firebaseDB, 'ListofSchool');
+                const usernameQuery = window.firebaseQuery(schoolsRef, window.firebaseWhere('username', '==', username));
+                const querySnapshot = await window.firebaseGetDocs(usernameQuery);
+
+                if (querySnapshot.empty) {
+                    showToast('ACCOUNT NOT FOUND', 'error');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Access Portal';
+                    return;
+                }
+
+                let schoolDoc = null;
+                querySnapshot.forEach(d => { schoolDoc = { id: d.id, ...d.data() }; });
+
+                if (schoolDoc && schoolDoc.password === password) {
+                    const schoolName = schoolDoc.schoolname || 'School';
+                    localStorage.setItem('schoolLoginData', JSON.stringify({
+                        username: username,
+                        schoolName: schoolName,
+                        schoolData: schoolDoc,
+                        loginTime: new Date().toISOString()
+                    }));
+                    showToast('Access Granted! Redirecting to school portal...');
+                    logActivityToFirestore(currentUser, `has accessed ${schoolName} portal with username: ${username}`);
+                    document.getElementById('schoolUsername').value = '';
+                    document.getElementById('schoolPassword').value = '';
+                    closeSchoolLoginModal();
+                    closeModal('schoolDetailModal');
+                    setTimeout(() => { window.location.href = 'school.html'; }, 1200);
+                } else {
+                    showToast('INCORRECT PASSWORD', 'error');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Access Portal';
+                }
+            } catch (error) {
+                console.error('School login error:', error);
+                showToast('Login failed. Please try again.', 'error');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Access Portal';
             }
         }
 
-        // ─── Filter schools ──────────────────────────────────────────────────────
-        function filterSchools(schoolId, label) {
-            logActivityToFirestore(currentUser, 'has filtered Schools by ' + (label || 'All Schools'));
-            activeFilter = schoolId;
-
-            // Update dropdown button label
-            const filterText = document.getElementById('filter-text');
-            filterText.textContent = label || 'All Schools';
-
-            // Highlight active filter option
-            document.querySelectorAll('.filter-option').forEach(opt => {
-                opt.classList.remove('active-filter');
-            });
-            if (schoolId === 'all') {
-                document.querySelector('.filter-option').classList.add('active-filter');
-            } else {
-                const match = document.querySelector(`.filter-option[data-school-id="${schoolId}"]`);
-                if (match) match.classList.add('active-filter');
-            }
-
-            // Filter and re-render
-            if (schoolId === 'all') {
-                renderSchoolCards(allSchools);
-            } else {
-                renderSchoolCards(allSchools.filter(s => s.id === schoolId));
-            }
-
-            // Close dropdown
-            document.getElementById('filterDropdown').classList.remove('show');
-        }
-
-        // ─── Toggle filter dropdown ───────────────────────────────────────────────
-        function toggleDropdown() {
-            document.getElementById('filterDropdown').classList.toggle('show');
-        }
-
-        // ─── Event listeners ─────────────────────────────────────────────────────
         function initializeEventListeners() {
-            // Allow Enter on full name input to move to password
-            const fnInput2 = document.getElementById('schoolModalFullName');
-            if (fnInput2) {
-                fnInput2.addEventListener('keypress', function (e) {
-                    if (e.key === 'Enter') document.getElementById('schoolModalPasswordInput').focus();
+            const usernameInput = document.getElementById('schoolUsername');
+            const passwordInput = document.getElementById('schoolPassword');
+            if (usernameInput) {
+                usernameInput.addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') passwordInput.focus();
+                });
+            }
+            if (passwordInput) {
+                passwordInput.addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        const form = document.querySelector('.school-login-form');
+                        if (form) form.dispatchEvent(new Event('submit'));
+                    }
                 });
             }
 
-            // Allow Enter on school password input
-            const pwInput = document.getElementById('schoolModalPasswordInput');
-            if (pwInput) {
-                pwInput.addEventListener('keypress', function (e) {
-                    if (e.key === 'Enter') checkSchoolPassword();
-                });
-            }
-
-            // Scroll animations
             const scrollElements = document.querySelectorAll('.scroll-animate');
             const scrollObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -3161,19 +2956,6 @@
             }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
             scrollElements.forEach(el => scrollObserver.observe(el));
 
-            // Footer animation
-            const footerSections = document.querySelectorAll('.footer-section, .footer-contact, .footer-social');
-            const footerObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
-            footerSections.forEach(section => footerObserver.observe(section));
-
-            // Nav smooth scrolling
             document.querySelectorAll('.nav-menu a, .mobile-menu a').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     const href = this.getAttribute('href');
@@ -3190,62 +2972,49 @@
                 });
             });
 
-            // Keyboard Escape closes modals
             document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape') {
+                    const schoolLoginModal = document.getElementById('schoolLoginModal');
+                    if (schoolLoginModal && schoolLoginModal.classList.contains('show')) {
+                        closeSchoolLoginModal(); return;
+                    }
                     const activeModal = document.querySelector('.modal[style*="block"]');
                     if (activeModal) {
                         activeModal.style.display = 'none';
-                        document.body.style.overflow = 'auto';
+                        document.body.style.overflow = 'auto'; return;
                     }
                     const loginModal = document.getElementById('loginModal');
-                    if (loginModal && !loginModal.classList.contains('hidden')) {
-                        closeLoginModal();
-                    }
+                    if (loginModal && !loginModal.classList.contains('hidden')) closeLoginModal();
                 }
             });
 
-            // Click outside to close dropdowns
             document.addEventListener('click', function (event) {
                 const userDropdown = document.getElementById('userDropdown');
                 const userDropdownContent = document.getElementById('userDropdownContent');
-                if (userDropdown && !userDropdown.contains(event.target)) {
-                    userDropdownContent.classList.remove('show');
-                }
+                if (userDropdown && !userDropdown.contains(event.target)) userDropdownContent.classList.remove('show');
 
                 const mobileUserDropdown = document.getElementById('mobileUserDropdown');
                 const mobileUserDropdownContent = document.getElementById('mobileUserDropdownContent');
-                if (mobileUserDropdown && !mobileUserDropdown.contains(event.target)) {
-                    mobileUserDropdownContent.classList.remove('show');
-                }
+                if (mobileUserDropdown && !mobileUserDropdown.contains(event.target)) mobileUserDropdownContent.classList.remove('show');
 
                 if (!event.target.matches('.filter-btn') && !event.target.closest('.filter-btn')) {
                     const dropdowns = document.getElementsByClassName('filter-dropdown-content');
-                    for (let i = 0; i < dropdowns.length; i++) {
-                        dropdowns[i].classList.remove('show');
-                    }
+                    for (let i = 0; i < dropdowns.length; i++) dropdowns[i].classList.remove('show');
                 }
             });
         }
 
-        // ─── Firebase Authentication ─────────────────────────────────────────────
         async function authenticateUser(username, password) {
             try {
                 if (!window.firebaseDB) throw new Error('Firebase not initialized');
                 const superAdminRef = window.firebaseCollection(window.firebaseDB, 'SuperAdminAccount');
                 const q = window.firebaseQuery(superAdminRef, window.firebaseWhere('username', '==', username));
                 const querySnapshot = await window.firebaseGetDocs(q);
-
                 if (querySnapshot.empty) return { success: false, error: 'ACCOUNT_NOT_FOUND' };
-
                 let userDoc = null;
-                querySnapshot.forEach(doc => { userDoc = { id: doc.id, ...doc.data() }; });
-
-                if (userDoc.password === password) {
-                    return { success: true, user: userDoc };
-                } else {
-                    return { success: false, error: 'WRONG_PASSWORD' };
-                }
+                querySnapshot.forEach(d => { userDoc = { id: d.id, ...d.data() }; });
+                if (userDoc.password === password) return { success: true, user: userDoc };
+                return { success: false, error: 'WRONG_PASSWORD' };
             } catch (error) {
                 console.error('Authentication error:', error);
                 return { success: false, error: 'SYSTEM_ERROR', details: error.message };
@@ -3258,17 +3027,13 @@
             const password = document.getElementById('password').value;
             const submitBtn = document.getElementById('loginSubmitBtn');
 
-            if (!username || !password) {
-                showToast('Please fill in all fields', 'error');
-                return;
-            }
+            if (!username || !password) { showToast('Please fill in all fields', 'error'); return; }
 
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<div class="loading-spinner"></div> Authenticating...';
 
             try {
                 const result = await authenticateUser(username, password);
-
                 if (result.success) {
                     currentUser = result.user;
                     localStorage.setItem('utownUser', JSON.stringify(currentUser));
@@ -3281,13 +3046,9 @@
                     document.getElementById('password').value = '';
                 } else {
                     switch (result.error) {
-                        case 'ACCOUNT_NOT_FOUND':
-                            showToast('ACCOUNT NOT FOUND', 'error'); break;
-                        case 'WRONG_PASSWORD':
-                            showToast('INCORRECT PASSWORD', 'error'); break;
-                        default:
-                            showToast('Login failed. Please try again.', 'error');
-                            console.error('Login error:', result.details);
+                        case 'ACCOUNT_NOT_FOUND': showToast('ACCOUNT NOT FOUND', 'error'); break;
+                        case 'WRONG_PASSWORD': showToast('INCORRECT PASSWORD', 'error'); break;
+                        default: showToast('Login failed. Please try again.', 'error'); console.error('Login error:', result.details);
                     }
                     document.getElementById('password').value = '';
                 }
@@ -3339,11 +3100,9 @@
             showToast('You have been signed out successfully');
         }
 
-        // ─── Toast ───────────────────────────────────────────────────────────────
         function showToast(message, type = 'success') {
             const existingToast = document.querySelector('.toast');
             if (existingToast) existingToast.remove();
-
             const toast = document.createElement('div');
             toast.className = `toast ${type === 'error' ? 'error' : ''}`;
             const icon = type === 'error' ? 'fas fa-exclamation-circle' : 'fas fa-check-circle';
@@ -3362,7 +3121,6 @@
             }, 5000);
         }
 
-        // ─── Modal helpers ───────────────────────────────────────────────────────
         function openAboutModal() {
             logActivityToFirestore(currentUser, 'has opened About Us');
             document.getElementById('aboutModal').style.display = 'block';
@@ -3414,17 +3172,17 @@
             document.querySelector('.mobile-menu-btn').classList.remove('active');
         }
 
-        // Close modal when clicking backdrop
         window.onclick = function (event) {
             if (event.target.classList.contains('modal')) {
                 event.target.style.display = 'none';
                 document.body.style.overflow = 'auto';
             } else if (event.target.classList.contains('login-modal')) {
                 closeLoginModal();
+            } else if (event.target.classList.contains('school-login-modal')) {
+                closeSchoolLoginModal();
             }
         };
 
-        // ─── Contact form ─────────────────────────────────────────────────────────
         function handleContactSubmit(event) {
             event.preventDefault();
             const firstName = document.getElementById('firstName').value;
@@ -3432,7 +3190,6 @@
             const email = document.getElementById('contactEmail').value;
             const subject = document.getElementById('subject').value;
             const message = document.getElementById('message').value;
-
             if (firstName && lastName && email && subject && message) {
                 showToast(`Thank you, ${firstName} ${lastName}! Your message has been sent successfully. We will get back to you soon.`);
                 closeModal('contactModal');
@@ -3442,7 +3199,6 @@
             }
         }
 
-        // Smooth scroll
         document.documentElement.style.scrollBehavior = 'smooth';
     </script>
 </body>
