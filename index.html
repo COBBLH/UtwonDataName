@@ -1,0 +1,3354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">UTOWN DATA NAME</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1e40af;
+            --secondary-blue: #1e3a8a;
+            --accent-blue: #3b82f6;
+            --accent-yellow: #fbbf24;
+            --light-yellow: #fef3c7;
+            --light-blue: #eff6ff;
+            --text-dark: #0f172a;
+            --text-gray: #64748b;
+            --text-light: #94a3b8;
+            --white: #ffffff;
+            --light-gray: #f8fafc;
+            --neutral-100: #f1f5f9;
+            --neutral-200: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --gradient-primary: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            --gradient-secondary: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--white);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Toast Notification Styles */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            z-index: 10000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            max-width: 400px;
+            font-weight: 500;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            background: #ef4444;
+        }
+
+        .toast .toast-icon {
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .toast .toast-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.25rem;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .toast .toast-close:hover {
+            opacity: 1;
+        }
+
+        /* Navigation Header Styles */
+        .nav-header {
+            background: var(--white);
+            border-bottom: 1px solid var(--neutral-200);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 0;
+        }
+
+        .nav-logos {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .nav-logo {
+            width: 52px;
+            height: 52px;
+            background: transparent;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.25rem;
+            box-shadow: none;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow);
+        }
+
+        .nav-logo:nth-child(2) {
+            background: transparent;
+        }
+
+        .nav-logo-img {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+        }
+
+        .nav-site-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none;
+            flex-shrink: 0;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+            position: relative;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .nav-menu a.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .sign-in-btn {
+            background: var(--gradient-primary);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .sign-in-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* User Dropdown Styles */
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        .user-dropdown-btn {
+            background: var(--gradient-primary);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .user-dropdown-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .user-dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--white);
+            min-width: 200px;
+            box-shadow: var(--shadow-xl);
+            border-radius: 12px;
+            z-index: 1000;
+            margin-top: 0.5rem;
+            border: 1px solid var(--neutral-200);
+            overflow: hidden;
+        }
+
+        .user-dropdown-content.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            color: var(--text-dark);
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-bottom: 1px solid var(--neutral-100);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: var(--light-blue);
+            color: var(--primary-blue);
+        }
+
+        .dropdown-item.logout:hover {
+            background: #fef2f2;
+            color: #ef4444;
+        }
+
+        /* Mobile Navigation */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 0.25rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .mobile-menu-btn span {
+            width: 24px;
+            height: 3px;
+            background: var(--text-dark);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border-top: 1px solid var(--neutral-200);
+            box-shadow: var(--shadow-lg);
+            padding: 1rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mobile-menu li {
+            border-bottom: 1px solid var(--neutral-100);
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 1rem 2rem;
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .mobile-menu a:hover {
+            background: var(--light-blue);
+            color: var(--primary-blue);
+        }
+
+        .mobile-sign-in {
+            margin: 1rem 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .nav-container > .sign-in-btn,
+            .nav-container > .user-dropdown {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .nav-site-name {
+                font-size: 1.1rem;
+            }
+
+            .nav-logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .nav-logo-img {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-menu-btn {
+                display: none !important;
+            }
+
+            .mobile-menu {
+                display: none !important;
+            }
+
+            .nav-menu {
+                display: flex !important;
+            }
+
+            .nav-container > .sign-in-btn:not(.hidden),
+            .nav-container > .user-dropdown:not(.hidden) {
+                display: flex;
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.95) 0%, rgba(59, 130, 246, 0.95) 100%),
+                        url('https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop') center/cover;
+            color: var(--white);
+            padding: 2rem 0 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            backdrop-filter: blur(1px);
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease 0.2s both;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            font-weight: 400;
+            line-height: 1.6;
+            animation: fadeInUp 1s ease 0.4s both;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            animation: fadeInUp 1s ease 0.6s both;
+            flex-wrap: wrap;
+        }
+
+        .header-stat {
+            text-align: center;
+        }
+
+        .header-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .header-stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .section-title p {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .filter-section {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .filter-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .filter-btn {
+            background: var(--gradient-primary);
+            color: var(--white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .filter-dropdown-content {
+            display: none;
+            position: absolute;
+            background: var(--white);
+            min-width: 250px;
+            box-shadow: var(--shadow-xl);
+            border-radius: 12px;
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            margin-top: 0.5rem;
+            border: 1px solid var(--neutral-200);
+            overflow: hidden;
+        }
+
+        .filter-dropdown-content.show {
+            display: block;
+        }
+
+        .filter-option {
+            color: var(--text-dark);
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-bottom: 1px solid var(--neutral-100);
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .filter-option:last-child {
+            border-bottom: none;
+        }
+
+        .filter-option:hover {
+            background: var(--light-blue);
+            color: var(--primary-blue);
+        }
+
+        .filter-option.active-filter {
+            background: var(--light-blue);
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .schools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .school-card {
+            background: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 1px solid var(--neutral-200);
+            position: relative;
+            transform: translateY(0);
+            min-width: 0;
+        }
+
+        .school-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--gradient-primary);
+            z-index: 2;
+        }
+
+        .school-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--accent-blue);
+        }
+
+        .school-image {
+            width: 100%;
+            height: 240px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 197, 253, 0.1));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .school-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .school-card:hover .school-image img {
+            transform: scale(1.1);
+        }
+
+        .school-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.3), rgba(59, 130, 246, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .school-card:hover .school-image-overlay {
+            opacity: 1;
+        }
+
+        .school-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-blue);
+            box-shadow: var(--shadow-lg);
+            backdrop-filter: blur(10px);
+        }
+
+        .school-content {
+            padding: 2rem;
+            min-width: 0;
+        }
+
+        .school-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.3;
+        }
+
+        .school-location {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            font-weight: 500;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .school-location i {
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .school-description {
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            animation: modalBackdrop 0.3s ease;
+        }
+
+        @keyframes modalBackdrop {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--white);
+            margin: 3% auto;
+            padding: 0;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 650px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 2rem 1.5rem 1.5rem;
+            border-radius: 24px 24px 0 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .school-logo {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--white);
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            flex-shrink: 0;
+        }
+
+        .modal-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            padding: 0 2.5rem;
+        }
+
+        .modal-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 400;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .modal-body {
+            padding: 2rem 1.5rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-section {
+            background: var(--neutral-100);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary-blue);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gradient-accent);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            min-width: 0;
+        }
+
+        .info-item:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow);
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            margin-right: 1rem;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .info-content {
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value {
+            color: var(--text-dark);
+            font-size: 1rem;
+            font-weight: 500;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--gradient-accent);
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: slideShine 2s ease-in-out infinite;
+        }
+
+        @keyframes slideShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-label {
+            opacity: 0.95;
+            font-weight: 500;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .password-section {
+            background: var(--gradient-secondary);
+            color: var(--text-dark);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .password-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+
+        .password-section h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .password-section p {
+            opacity: 0.9;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            font-size: 0.9rem;
+        }
+
+        .password-input {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .password-input input {
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            width: 180px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .password-input input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.3);
+            background: var(--white);
+        }
+
+        .password-btn {
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.9rem;
+            box-shadow: var(--shadow);
+        }
+
+        .password-btn:hover {
+            background: var(--secondary-blue);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .social-section {
+            background: var(--light-blue);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .social-section h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            color: var(--white);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+            flex-shrink: 0;
+        }
+
+        .social-link:hover {
+            transform: translateY(-4px) scale(1.1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .social-link.facebook:hover { background: linear-gradient(135deg, #1877f2, #42a5f5); }
+        .social-link.twitter:hover { background: linear-gradient(135deg, #1da1f2, #42a5f5); }
+        .social-link.instagram:hover { background: linear-gradient(135deg, #e4405f, #fd1d1d, #fcb045); }
+        .social-link.linkedin:hover { background: linear-gradient(135deg, #0077b5, #0099d4); }
+
+        /* Login Modal Styles */
+        .login-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            animation: modalBackdrop 0.3s ease;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .login-modal.hidden {
+            display: none !important;
+        }
+
+        .login-modal-content {
+            background: var(--white);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 450px;
+            max-height: calc(100vh - 2rem);
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .login-header {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 2rem 2rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .login-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .login-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .login-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--white);
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .login-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .login-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .login-body {
+            padding: 2rem;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            padding: 1rem;
+            border: 2px solid var(--neutral-200);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--white);
+            width: 100%;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .login-btn {
+            background: var(--gradient-primary);
+            color: var(--white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--neutral-200);
+        }
+
+        .login-footer p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-footer a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* School Login Modal */
+        .school-login-modal {
+            display: none;
+            position: fixed;
+            z-index: 2500;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            animation: modalBackdrop 0.3s ease;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .school-login-modal.show {
+            display: flex;
+        }
+
+        .school-login-content {
+            background: var(--white);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 450px;
+            max-height: calc(100vh - 2rem);
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            border: 1px solid var(--neutral-200);
+        }
+
+        .school-login-header {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 2rem 2rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .school-login-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .school-login-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .school-login-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--white);
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .school-login-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            padding: 0 2.5rem;
+        }
+
+        .school-login-subtitle {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.4;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            padding: 0 0.5rem;
+        }
+
+        .school-login-body {
+            padding: 2rem;
+        }
+
+        .school-login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* About Us Modal Styles */
+        .about-content {
+            max-width: 100%;
+        }
+
+        .about-mission {
+            background: var(--light-blue);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .about-mission h3 {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .about-mission p {
+            color: var(--text-dark);
+            line-height: 1.7;
+            font-size: 1rem;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .about-values {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .value-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--neutral-200);
+            transition: all 0.3s ease;
+            min-width: 0;
+        }
+
+        .value-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .value-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.8rem;
+            margin: 0 auto 1rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .value-card h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .value-card p {
+            color: var(--text-gray);
+            line-height: 1.6;
+            font-size: 0.95rem;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .about-team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .team-member {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--neutral-100);
+            transition: all 0.3s ease;
+            min-width: 0;
+        }
+
+        .team-member:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .team-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+            box-shadow: var(--shadow-sm);
+            flex-shrink: 0;
+        }
+
+        .team-member h5 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.3;
+        }
+
+        .team-member .role {
+            color: var(--primary-blue);
+            font-size: 0.85rem;
+            font-weight: 600;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.4;
+        }
+
+        /* Contact Us Modal Styles */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-card {
+            background: var(--light-blue);
+            border-radius: 16px;
+            padding: 1.5rem 1.25rem;
+            text-align: center;
+            border-left: 4px solid var(--primary-blue);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .contact-icon {
+            width: 56px;
+            height: 56px;
+            min-width: 56px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            margin: 0 auto 0.875rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .contact-card h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.625rem;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .contact-card p {
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin: 0;
+            font-size: 0.875rem;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            width: 100%;
+        }
+
+        .contact-hours-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .contact-hours-list li {
+            color: var(--text-gray);
+            font-size: 0.875rem;
+            line-height: 1.7;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .contact-hours-list strong {
+            display: block;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .contact-hours-list .closed {
+            color: #dc2626;
+            font-style: italic;
+        }
+
+        .contact-form {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--neutral-200);
+        }
+
+        .contact-form h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Enhanced Footer */
+        .footer {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+            margin-top: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-secondary);
+            animation: footerGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes footerGlow {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            padding-right: 2rem;
+            min-width: 0;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .footer-logo i {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.75rem;
+            border-radius: 50%;
+            backdrop-filter: blur(10px);
+            flex-shrink: 0;
+        }
+
+        .footer-description {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .footer-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-stat {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            min-width: 0;
+        }
+
+        .footer-stat:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .footer-stat-number {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .footer-stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .footer-section {
+            animation: fadeInUp 0.6s ease;
+            min-width: 0;
+        }
+
+        .footer-section h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-contact {
+            animation: fadeInUp 0.6s ease 0.2s both;
+            min-width: 0;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            min-width: 0;
+        }
+
+        .footer-contact-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .footer-contact-icon {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            backdrop-filter: blur(10px);
+            flex-shrink: 0;
+        }
+
+        .footer-contact-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .footer-contact-content h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .footer-contact-content p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin: 0;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .footer-social {
+            animation: fadeInUp 0.6s ease 0.4s both;
+            min-width: 0;
+        }
+
+        .footer-social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            flex-shrink: 0;
+        }
+
+        .footer-social-link:hover {
+            transform: translateY(-4px) scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-social-link.facebook:hover { background: linear-gradient(135deg, #1877f2, #42a5f5); box-shadow: 0 10px 25px rgba(24, 119, 242, 0.3); }
+        .footer-social-link.twitter:hover { background: linear-gradient(135deg, #1da1f2, #42a5f5); box-shadow: 0 10px 25px rgba(29, 161, 242, 0.3); }
+        .footer-social-link.instagram:hover { background: linear-gradient(135deg, #e4405f, #fd1d1d, #fcb045); box-shadow: 0 10px 25px rgba(228, 64, 95, 0.3); }
+        .footer-social-link.linkedin:hover { background: linear-gradient(135deg, #0077b5, #0099d4); box-shadow: 0 10px 25px rgba(0, 119, 181, 0.3); }
+        .footer-social-link.youtube:hover { background: linear-gradient(135deg, #ff0000, #ff4444); box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3); }
+        .footer-social-link.tiktok:hover { background: linear-gradient(135deg, #000000, #ff0050); box-shadow: 0 10px 25px rgba(255, 0, 80, 0.3); }
+
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            margin: 3rem 0 2rem;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            opacity: 0.9;
+        }
+
+        .footer-copyright {
+            font-size: 0.95rem;
+            font-weight: 500;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .footer-legal-links {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-legal-link {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .footer-legal-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .footer-main { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+            .footer-stats { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 1024px) {
+            .header h1 { font-size: 2rem; }
+            .header-stats { gap: 2rem; }
+            .schools-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+            .footer-main { grid-template-columns: 1fr; gap: 2rem; }
+            .footer-brand { padding-right: 0; }
+            .footer-stats { grid-template-columns: 1fr 1fr 1fr; }
+            .about-values { grid-template-columns: 1fr 1fr; }
+            .contact-info { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .form-row { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 2rem 0 3rem; }
+            .header h1 { font-size: 1.8rem; }
+            .header p { font-size: 1rem; }
+            .header-stats { flex-direction: column; gap: 1.5rem; }
+            .section-title h2 { font-size: 1.75rem; }
+            .schools-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .school-card { margin: 0; }
+            .modal-content { width: 95%; margin: 5% auto; border-radius: 20px; max-width: 600px; }
+            .modal-header { padding: 1.5rem 1rem 1rem; border-radius: 20px 20px 0 0; }
+            .modal-body { padding: 1.5rem 1rem; }
+            .password-input { flex-direction: column; gap: 1rem; }
+            .password-input input { width: 100%; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .login-modal, .school-login-modal { padding: 0.5rem; }
+            .login-modal-content, .school-login-content { max-width: none; width: 100%; max-height: calc(100vh - 1rem); border-radius: 16px; }
+            .login-header, .school-login-header { padding: 1.5rem; border-radius: 16px 16px 0 0; }
+            .login-body, .school-login-body { padding: 1.5rem; }
+            .form-input { padding: 0.875rem; font-size: 16px; }
+            .footer { padding: 3rem 0 2rem; }
+            .footer-stats { grid-template-columns: 1fr 1fr; }
+            .footer-social-links { justify-content: center; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .footer-legal-links { justify-content: center; }
+            .contact-info { grid-template-columns: 1fr; }
+            .about-values { grid-template-columns: 1fr; }
+            .about-team { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 480px) {
+            .header { padding: 1.5rem 0 2rem; }
+            .header h1 { font-size: 1.4rem; }
+            .container { padding: 2rem 0.75rem; }
+            .school-content { padding: 1.5rem; }
+            .modal-header h2 { font-size: 1.4rem; }
+            .footer-stats { grid-template-columns: 1fr; }
+            .login-modal, .school-login-modal { padding: 0.25rem; align-items: flex-start; padding-top: 1rem; }
+            .login-modal-content, .school-login-content { border-radius: 12px; }
+            .login-title, .school-login-title { font-size: 1.25rem; }
+            .login-body, .school-login-body { padding: 1rem; }
+            .about-team { grid-template-columns: 1fr; }
+            .footer-legal-links { gap: 1rem; }
+        }
+
+        /* Loading animations */
+        .school-card {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .school-card.animate {
+            animation: cardSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes cardSlideIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .schools-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 5rem 2rem;
+            grid-column: 1 / -1;
+            color: var(--text-gray);
+        }
+
+        .schools-loading .loading-ring {
+            width: 56px;
+            height: 56px;
+            border: 4px solid var(--neutral-200);
+            border-top-color: var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+        }
+
+        .schools-loading p { font-size: 1.1rem; font-weight: 500; }
+
+        .schools-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 5rem 2rem;
+            grid-column: 1 / -1;
+            color: var(--text-gray);
+            text-align: center;
+        }
+
+        .schools-empty i { font-size: 3rem; color: var(--neutral-200); }
+
+        .school-initials {
+            width: 100%;
+            height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: rgba(255,255,255,0.95);
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            position: relative;
+            padding: 1rem;
+            text-align: center;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .school-abbrev-badge {
+            display: inline-block;
+            background: var(--gradient-primary);
+            color: var(--white);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.05em;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+        }
+
+        .school-contact-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .school-contact-row i { width: 16px; color: var(--accent-blue); flex-shrink: 0; margin-top: 0.15rem; }
+
+        .school-description-box {
+            background: var(--light-blue);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary-blue);
+            font-size: 1rem;
+            color: var(--text-dark);
+            line-height: 1.7;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .scroll-animate {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .scroll-animate.in-view {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+    <meta property="og:image" content="https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?auto=compress&cs=tinysrgb&w=1200">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?auto=compress&cs=tinysrgb&w=1200">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="nav-header">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="nav-logos">
+                    <div class="nav-logo">
+                        <img src="CITY HALL LOGO.png" alt="City Hall Logo" class="nav-logo-img">
+                    </div>
+                    <div class="nav-logo">
+                        <img src="CEEDO NEW LOGO 2026.png" alt="CEEDO Logo" class="nav-logo-img">
+                    </div>
+                </div>
+                <div class="nav-site-name" id="navSiteName">UTOWN DATA NAME</div>
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#schools">Schools</a></li>
+                <li><a onclick="openAboutModal()">About Us</a></li>
+                <li><a onclick="openContactModal()">Contact Us</a></li>
+            </ul>
+
+            <button class="sign-in-btn" onclick="handleSignIn()" id="signInButton">
+                <i class="fas fa-user"></i>
+                SIGN IN
+            </button>
+
+            <div class="user-dropdown hidden" id="userDropdown">
+                <button class="user-dropdown-btn" onclick="toggleUserDropdown()" id="userDropdownBtn">
+                    <i class="fas fa-user"></i>
+                    <span id="userDropdownText">Hello, User</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="user-dropdown-content" id="userDropdownContent">
+                    <div class="dropdown-item" onclick="handleDashboard()">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </div>
+                    <div class="dropdown-item logout" onclick="handleSignOut()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </div>
+                </div>
+            </div>
+
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
+                <li><a href="#schools" onclick="closeMobileMenu()">Schools</a></li>
+                <li><a onclick="openAboutModal(); closeMobileMenu()">About Us</a></li>
+                <li><a onclick="openContactModal(); closeMobileMenu()">Contact Us</a></li>
+            </ul>
+            <div class="mobile-sign-in">
+                <button class="sign-in-btn" onclick="handleSignIn()" id="mobileSignInButton">
+                    <i class="fas fa-user"></i>
+                    SIGN IN
+                </button>
+                <div class="user-dropdown hidden" id="mobileUserDropdown">
+                    <button class="user-dropdown-btn" onclick="toggleMobileUserDropdown()" id="mobileUserDropdownBtn">
+                        <i class="fas fa-user"></i>
+                        <span id="mobileUserDropdownText">Hello, User</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="user-dropdown-content" id="mobileUserDropdownContent">
+                        <div class="dropdown-item" onclick="handleDashboard(); closeMobileMenu()">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Dashboard
+                        </div>
+                        <div class="dropdown-item logout" onclick="handleSignOut(); closeMobileMenu()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="header">
+        <div class="header-content">
+            <h1><i class="fas fa-graduation-cap"></i> UTOWN DATA NAME</h1>
+            <p>Empowering minds, shaping futures through innovative education and academic excellence across premier institutions worldwide</p>
+            <div class="header-stats">
+                <div class="header-stat">
+                    <span class="header-stat-number" id="headerSchoolCount">—</span>
+                    <span class="header-stat-label">College Schools</span>
+                </div>
+                <div class="header-stat">
+                    <span class="header-stat-number">450+</span>
+                    <span class="header-stat-label">Expert Faculty</span>
+                </div>
+                <div class="header-stat">
+                    <span class="header-stat-number">15K+</span>
+                    <span class="header-stat-label">Bataan Students</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" id="schools">
+        <div class="section-title scroll-animate">
+            <h2>UTWON DATA NAME</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-dropdown">
+                <button class="filter-btn" onclick="toggleDropdown()">
+                    <i class="fas fa-filter"></i>
+                    <span id="filter-text">All Schools</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="filter-dropdown-content" id="filterDropdown">
+                    <div class="filter-option active-filter" onclick="filterSchools('all')">All Schools</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="schools-grid" id="schoolsGrid">
+            <div class="schools-loading">
+                <div class="loading-ring"></div>
+                <p>Loading schools from database...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>UTWON DATA NAME</span>
+                    </div>
+                    <p class="footer-description">
+                       This platform serves as the official digital registry for student enrollment across Balanga City, providing real-time data on student populations, school capacities, and educational growth within Bataan's capital. We are dedicated to maintaining transparency and data-driven insights to help the community better support our learners and institutions.
+                    </p>
+                    <div class="footer-stats">
+                        <div class="footer-stat">
+                            <span class="footer-stat-number">15K+</span>
+                            <span class="footer-stat-label">Students</span>
+                        </div>
+                        <div class="footer-stat">
+                            <span class="footer-stat-number">450+</span>
+                            <span class="footer-stat-label">Faculty</span>
+                        </div>
+                        <div class="footer-stat">
+                            <span class="footer-stat-number" id="footerSchoolCount">9</span>
+                            <span class="footer-stat-label">Schools</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-contact">
+                    <h3><i class="fas fa-address-book"></i> Contact Info</h3>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="footer-contact-content">
+                            <h4>Location</h4>
+                            <p>2nd Floor Balanga City Hall</p>
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon"><i class="fas fa-phone"></i></div>
+                        <div class="footer-contact-content">
+                            <h4>Phone & Fax</h4>
+                            <p>+63 960 568 3438</p>
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="footer-contact-content">
+                            <h4>Email Us</h4>
+                            <p>ceedo@cityofbalanga.gov.ph</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-social">
+                    <h3><i class="fas fa-share-alt"></i> Follow Us</h3>
+                    <div class="footer-social-links">
+                        <a href="https://www.facebook.com/CityEducationandExcellenceDevelopmentOffice" class="footer-social-link facebook" onclick="logActivityToFirestore(currentUser,'has clicked Facebook Link')"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="footer-social-link twitter" onclick="logActivityToFirestore(currentUser,'has clicked Twitter Link')"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="footer-social-link instagram" onclick="logActivityToFirestore(currentUser,'has clicked Instagram Link')"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="footer-social-link linkedin" onclick="logActivityToFirestore(currentUser,'has clicked LinkedIn Link')"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="footer-social-link youtube" onclick="logActivityToFirestore(currentUser,'has clicked YouTube Link')"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="footer-social-link tiktok" onclick="logActivityToFirestore(currentUser,'has clicked TikTok Link')"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    &copy; 2026 UTWOWN DATA NAME. All rights reserved.
+                </div>
+                <div class="footer-legal-links">
+                    <a href="#" class="footer-legal-link" onclick="logActivityToFirestore(currentUser,'has clicked Privacy Policy')">Privacy Policy</a>
+                    <a href="#" class="footer-legal-link" onclick="logActivityToFirestore(currentUser,'has clicked Terms of Service')">Terms of Service</a>
+                    <a href="#" class="footer-legal-link" onclick="logActivityToFirestore(currentUser,'has clicked Cookie Policy')">Cookie Policy</a>
+                    <a href="#" class="footer-legal-link" onclick="logActivityToFirestore(currentUser,'has clicked Accessibility')">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- About Us Modal -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal('aboutModal')">&times;</span>
+                <div class="school-logo"><i class="fas fa-users"></i></div>
+                <h2>About UTOWN DATA NAME</h2>
+                <p class="modal-subtitle">Transforming Lives Through Quality Education</p>
+            </div>
+            <div class="modal-body">
+                <div class="about-content">
+                    <div class="about-mission">
+                        <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                    <div class="about-values">
+                        <div class="value-card">
+                            <div class="value-icon"><i class="fas fa-star"></i></div>
+                            <h4>Excellence</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                        <div class="value-card">
+                            <div class="value-icon"><i class="fas fa-lightbulb"></i></div>
+                            <h4>Innovation</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                        <div class="value-card">
+                            <div class="value-icon"><i class="fas fa-heart"></i></div>
+                            <h4>Integrity</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                        <div class="value-card">
+                            <div class="value-icon"><i class="fas fa-globe"></i></div>
+                            <h4>Global Perspective</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                    </div>
+                    <div class="info-section">
+                        <h3 style="margin-bottom: 1.5rem; color: var(--primary-blue);"><i class="fas fa-users-cog"></i> Leadership Team</h3>
+                        <div class="about-team">
+                            <div class="team-member">
+                                <div class="team-avatar"><i class="fas fa-user-tie"></i></div>
+                                <h5>Ms. Tarra Ann M. Pagdanganan</h5>
+                                <p class="role">City Goverment Assitant Department Head I</p>
+                            </div>
+                            <div class="team-member">
+                                <div class="team-avatar"><i class="fas fa-chalkboard-teacher"></i></div>
+                                <h5>Theresa Jane B. Mendoza</h5>
+                                <p class="role">Development Management Officer II</p>
+                            </div>
+                            <div class="team-member">
+                                <div class="team-avatar"><i class="fas fa-laptop"></i></div>
+                                <h5>Zyrine B. Padilla</h5>
+                                <p class="role">Development Management Officer I</p>
+                            </div>
+                            <div class="team-member">
+                                <div class="team-avatar"><i class="fas fa-handshake"></i></div>
+                                <h5>Ms. Reina G. Hernando</h5>
+                                <p class="role">Education Research Assistant I</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Us Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal('contactModal')">&times;</span>
+                <div class="school-logo"><i class="fas fa-envelope"></i></div>
+                <h2>Contact Us</h2>
+                <p class="modal-subtitle">Get in Touch - We're Here to Help</p>
+            </div>
+            <div class="modal-body">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <h4>Call Us</h4>
+                        <p>Office: +63 960 568 3438</p>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <h4>Email Us</h4>
+                        <p>ceedo@cityofbalanga.gov.ph</p>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <h4>Visit Us</h4>
+                        <p>2nd Floor Balanga City Hall<br>Balanga City, Bataan<br>Philippines</p>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-clock"></i></div>
+                        <h4>Office Hours</h4>
+                        <ul class="contact-hours-list">
+                            <li><strong>Monday - Thursday</strong>8:00 AM - 6:30 PM</li>
+                            <li class="closed">Friday: Closed</li>
+                            <li class="closed">Saturday: Closed</li>
+                            <li class="closed">Sunday: Closed</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="social-section">
+                    <h3><i class="fas fa-share-alt"></i> Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link linkedin"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="login-modal hidden">
+        <div class="login-modal-content">
+            <div class="login-header">
+                <span class="login-close" onclick="closeLoginModal()">&times;</span>
+                <div class="login-icon"><i class="fas fa-user-graduate"></i></div>
+                <h2 class="login-title">Welcome Back</h2>
+                <p class="login-subtitle">Sign in to your UTWON DATA NAME account</p>
+            </div>
+            <div class="login-body">
+                <form class="login-form" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" id="username" class="form-input" placeholder="Enter your username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="login-btn" id="loginSubmitBtn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Sign In
+                    </button>
+                </form>
+                <div class="login-footer">
+                    <p><a href="#" onclick="handleForgotPassword()">Forgot your password?</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- School Login Modal -->
+    <div id="schoolLoginModal" class="school-login-modal">
+        <div class="school-login-content">
+            <div class="school-login-header">
+                <span class="school-login-close" onclick="closeSchoolLoginModal()">&times;</span>
+                <div class="school-login-icon"><i class="fas fa-school"></i></div>
+                <h2 class="school-login-title" id="schoolLoginTitle">Access School Portal</h2>
+                <p class="school-login-subtitle" id="schoolLoginSubtitle">Please enter your credentials to access the administrative portal</p>
+            </div>
+            <div class="school-login-body">
+                <form class="school-login-form" onsubmit="handleSchoolLogin(event)">
+                    <div class="form-group">
+                        <label for="schoolUsername" class="form-label">Username</label>
+                        <input type="text" id="schoolUsername" class="form-input" placeholder="Enter your username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="schoolPassword" class="form-label">Password</label>
+                        <input type="password" id="schoolPassword" class="form-input" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="login-btn" id="schoolLoginSubmitBtn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Access Portal
+                    </button>
+                </form>
+                <div class="login-footer">
+                    <p>Need assistance? Contact the school administrator</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic School Detail Modal -->
+    <div id="schoolDetailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header" id="schoolModalHeader">
+                <span class="close" onclick="closeModal('schoolDetailModal')">&times;</span>
+                <div class="school-logo" id="schoolModalLogo"><i class="fas fa-school"></i></div>
+                <h2 id="schoolModalName">School Name</h2>
+                <p class="modal-subtitle" id="schoolModalSubtitle"></p>
+            </div>
+            <div class="modal-body">
+                <div class="school-description-box" id="schoolModalDescription" style="display:none;"></div>
+                <div class="info-grid">
+                    <div class="info-section">
+                        <div class="info-item" id="schoolModalPresident" style="display:none;">
+                            <div class="info-icon"><i class="fas fa-user-tie"></i></div>
+                            <div class="info-content">
+                                <div class="info-label">School President / Director</div>
+                                <div class="info-value" id="schoolModalPresidentValue"></div>
+                            </div>
+                        </div>
+                        <div class="info-item" id="schoolModalAddress" style="display:none;">
+                            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="info-content">
+                                <div class="info-label">Address</div>
+                                <div class="info-value" id="schoolModalAddressValue"></div>
+                            </div>
+                        </div>
+                        <div class="info-item" id="schoolModalEmail" style="display:none;">
+                            <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="info-content">
+                                <div class="info-label">Email</div>
+                                <div class="info-value" id="schoolModalEmailValue"></div>
+                            </div>
+                        </div>
+                        <div class="info-item" id="schoolModalContact" style="display:none;">
+                            <div class="info-icon"><i class="fas fa-phone"></i></div>
+                            <div class="info-content">
+                                <div class="info-label">Contact Number</div>
+                                <div class="info-value" id="schoolModalContactValue"></div>
+                            </div>
+                        </div>
+                        <div class="info-item" id="schoolModalLandline" style="display:none;">
+                            <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+                            <div class="info-content">
+                                <div class="info-label">Landline</div>
+                                <div class="info-value" id="schoolModalLandlineValue"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stats-grid" id="schoolModalStatsGrid" style="display:none;">
+                    <div class="stat-card">
+                        <div class="stat-number" id="schoolModalTeaching">0</div>
+                        <div class="stat-label">Teaching Staff</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="schoolModalNonTeaching">0</div>
+                        <div class="stat-label">Non-Teaching Staff</div>
+                    </div>
+                </div>
+                <div class="password-section" id="schoolAccessSection">
+                    <h3><i class="fas fa-lock"></i> Administrative Access</h3>
+                    <p>Access the school administrative portal</p>
+                    <div class="password-input">
+                        <button class="password-btn" onclick="openSchoolLoginModal()">
+                            <i class="fas fa-key"></i>
+                            Access Portal
+                        </button>
+                    </div>
+                </div>
+                <div class="social-section">
+                    <h3><i class="fas fa-share-alt"></i> Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link linkedin"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Module Script -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, query, where, getDocs, orderBy, addDoc, setDoc, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAburxavDgOMyvljxW_I40EPiRva3tj4ag",
+            authDomain: "utowndataname.firebaseapp.com",
+            projectId: "utowndataname",
+            storageBucket: "utowndataname.firebasestorage.app",
+            messagingSenderId: "271049356376",
+            appId: "1:271049356376:web:98a77535112d21e6c6862d",
+            measurementId: "G-CYS1VQ90X7"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.firebaseDB = db;
+        window.firebaseCollection = collection;
+        window.firebaseQuery = query;
+        window.firebaseWhere = where;
+        window.firebaseGetDocs = getDocs;
+        window.firebaseOrderBy = orderBy;
+        window.firebaseAddDoc = addDoc;
+        window.firebaseSetDoc = setDoc;
+        window.firebaseDoc = doc;
+        window.firebaseGetDoc = getDoc;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSchoolsFromFirestore();
+            loadAndApplySettings();
+        });
+
+        async function loadAndApplySettings() {
+            try {
+                const settingsRef = collection(db, 'Settings');
+                const snap = await getDocs(settingsRef);
+                const settings = {};
+                snap.forEach(d => {
+                    const data = d.data();
+                    settings[d.id] = data.value !== undefined ? data.value : (Object.values(data)[0] || '');
+                });
+                if (settings.SystemName) {
+                    const navEl = document.getElementById('navSiteName');
+                    if (navEl) navEl.textContent = settings.SystemName;
+                    document.title = settings.SystemName;
+                }
+            } catch (e) {
+                console.error('loadAndApplySettings error:', e);
+            }
+        }
+
+        async function loadSchoolsFromFirestore() {
+            const grid = document.getElementById('schoolsGrid');
+            try {
+                if (!window.firebaseDB) {
+                    setTimeout(loadSchoolsFromFirestore, 300);
+                    return;
+                }
+
+                const colRef = collection(db, 'ListofSchool');
+                const snapshot = await getDocs(colRef);
+
+                if (snapshot.empty) {
+                    grid.innerHTML = `
+                        <div class="schools-empty">
+                            <i class="fas fa-school"></i>
+                            <p>No schools found in the database.</p>
+                        </div>`;
+                    return;
+                }
+
+                window.allSchools = [];
+                snapshot.forEach(d => {
+                    window.allSchools.push({ id: d.id, ...d.data() });
+                });
+
+                window.allSchools.sort((a, b) => (a.schoolname || '').localeCompare(b.schoolname || ''));
+
+                const activeCount = window.allSchools.filter(s => !s.deletestats).length;
+                const countEl = document.getElementById('headerSchoolCount');
+                const footerEl = document.getElementById('footerSchoolCount');
+                if (countEl) countEl.textContent = activeCount;
+                if (footerEl) footerEl.textContent = activeCount;
+
+                populateFilterDropdown();
+                renderSchoolCards(window.allSchools);
+
+            } catch (err) {
+                console.error('Error loading schools:', err);
+                grid.innerHTML = `
+                    <div class="schools-empty">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Failed to load schools. Please refresh the page.</p>
+                    </div>`;
+            }
+        }
+
+        function populateFilterDropdown() {
+            const dropdown = document.getElementById('filterDropdown');
+            const existing = dropdown.querySelectorAll('.filter-option:not(:first-child)');
+            existing.forEach(el => el.remove());
+
+            (window.allSchools || []).forEach(school => {
+                if (school.deletestats) return;
+                const abbrev = school.schoolabbrev || school.schoolname || school.id;
+                const option = document.createElement('div');
+                option.className = 'filter-option';
+                option.textContent = abbrev;
+                option.setAttribute('data-school-id', school.id);
+                option.onclick = () => filterSchools(school.id, abbrev);
+                dropdown.appendChild(option);
+            });
+        }
+
+        window.renderSchoolCards = function(schools) {
+            const grid = document.getElementById('schoolsGrid');
+            grid.innerHTML = '';
+
+            const visible = schools.filter(s => !s.deletestats);
+
+            if (visible.length === 0) {
+                grid.innerHTML = `
+                    <div class="schools-empty">
+                        <i class="fas fa-school"></i>
+                        <p>No schools match the selected filter.</p>
+                    </div>`;
+                return;
+            }
+
+            visible.forEach((school, index) => {
+                const card = createSchoolCard(school, index);
+                grid.appendChild(card);
+            });
+
+            const cards = grid.querySelectorAll('.school-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, i) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => entry.target.classList.add('animate'), i * 100);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+            cards.forEach(card => observer.observe(card));
+        };
+
+        function createSchoolCard(school, index) {
+            const card = document.createElement('div');
+            card.className = 'school-card';
+            card.setAttribute('data-school-id', school.id);
+
+            const gradients = [
+                'linear-gradient(135deg, #1e40af 0%, #3b82f6 100%)',
+                'linear-gradient(135deg, #065f46 0%, #10b981 100%)',
+                'linear-gradient(135deg, #7c2d12 0%, #f97316 100%)',
+                'linear-gradient(135deg, #4c1d95 0%, #8b5cf6 100%)',
+                'linear-gradient(135deg, #881337 0%, #f43f5e 100%)',
+                'linear-gradient(135deg, #164e63 0%, #06b6d4 100%)',
+                'linear-gradient(135deg, #713f12 0%, #eab308 100%)',
+                'linear-gradient(135deg, #1e3a8a 0%, #6366f1 100%)',
+            ];
+            const grad = gradients[index % gradients.length];
+
+            const abbrev = school.schoolabbrev || '?';
+            const name = school.schoolname || 'Unknown School';
+            const address = school.address || '';
+            const description = school.description || '';
+
+            card.innerHTML = `
+                <div class="school-image" style="background: ${grad};">
+                    <div class="school-initials">${abbrev}</div>
+                    <div class="school-image-overlay">
+                        <div class="school-icon"><i class="fas fa-school"></i></div>
+                    </div>
+                </div>
+                <div class="school-content">
+                    <span class="school-abbrev-badge">${abbrev}</span>
+                    <h3>${name}</h3>
+                    ${address ? `<div class="school-location"><i class="fas fa-map-marker-alt"></i><span>${address}</span></div>` : ''}
+                    ${description ? `<p class="school-description">${description.length > 140 ? description.substring(0, 140) + '…' : description}</p>` : ''}
+                </div>
+            `;
+
+            card.addEventListener('click', () => openSchoolModal(school));
+            return card;
+        }
+    </script>
+
+    <script>
+        let currentUser = null;
+        let allSchools = [];
+        let currentSchool = null;
+        let activeFilter = 'all';
+        let clientInfo = { ipAddress: 'Unknown', pcName: 'Unknown' };
+
+        async function initClientInfo() {
+            try {
+                const res = await fetch('https://api.ipify.org?format=json');
+                const data = await res.json();
+                clientInfo.ipAddress = data.ip || 'Unknown';
+            } catch (e) {
+                clientInfo.ipAddress = 'Unknown';
+            }
+            clientInfo.pcName = navigator.platform || navigator.userAgentData?.platform || 'Unknown Device';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initClientInfo();
+            checkExistingSession();
+            initializeEventListeners();
+        });
+
+        async function logActivityToFirestore(user, action) {
+            try {
+                if (!window.firebaseDB || !window.firebaseSetDoc) return;
+                const activityRef = window.firebaseCollection(window.firebaseDB, 'ActivityLog');
+                const snapshot = await window.firebaseGetDocs(activityRef);
+                const nextNum = snapshot.size + 1;
+                const activityId = 'ActivityID_' + String(nextNum).padStart(4, '0');
+                const now = new Date();
+                const readable = now.toLocaleDateString('en-PH', {
+                    year: 'numeric', month: 'long', day: 'numeric',
+                    hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true
+                });
+                const fullName = user
+                    ? ((user.fname && user.lname) ? user.fname + ' ' + user.lname : (user.fname || user.username))
+                    : 'Guest';
+                const ip = clientInfo.ipAddress || 'Unknown';
+                const pc = clientInfo.pcName || 'Unknown';
+                const description = fullName + ' ' + (action || 'has Login') + ' at ' + readable + ' | IP: ' + ip + ' | PC: ' + pc;
+                const docRef = window.firebaseDoc(window.firebaseDB, 'ActivityLog', activityId);
+                await window.firebaseSetDoc(docRef, {
+                    ActivityID: activityId,
+                    Location: 'index.html',
+                    AccountRole: user ? 'superadmin' : 'guest',
+                    UserID: user ? (user.id || '') : '',
+                    Username: user ? (user.username || '') : 'guest',
+                    Description: description,
+                    IPAddress: ip,
+                    PCName: pc,
+                    TimeStamp: now
+                });
+            } catch (err) {
+                console.error('Failed to log activity:', err);
+            }
+        }
+
+        function checkExistingSession() {
+            const storedUser = localStorage.getItem('utownUser');
+            if (storedUser) {
+                try {
+                    currentUser = JSON.parse(storedUser);
+                    updateUIForLoggedInUser(currentUser);
+                } catch (e) {
+                    localStorage.removeItem('utownUser');
+                }
+            }
+        }
+
+        function filterSchools(schoolId, label) {
+            logActivityToFirestore(currentUser, 'has filtered Schools by ' + (label || 'All Schools'));
+            activeFilter = schoolId;
+
+            const filterText = document.getElementById('filter-text');
+            filterText.textContent = label || 'All Schools';
+
+            document.querySelectorAll('.filter-option').forEach(opt => opt.classList.remove('active-filter'));
+            if (schoolId === 'all') {
+                document.querySelector('.filter-option').classList.add('active-filter');
+            } else {
+                const match = document.querySelector(`.filter-option[data-school-id="${schoolId}"]`);
+                if (match) match.classList.add('active-filter');
+            }
+
+            const schools = window.allSchools || [];
+            if (schoolId === 'all') {
+                window.renderSchoolCards(schools);
+            } else {
+                window.renderSchoolCards(schools.filter(s => s.id === schoolId));
+            }
+
+            document.getElementById('filterDropdown').classList.remove('show');
+        }
+
+        function toggleDropdown() {
+            document.getElementById('filterDropdown').classList.toggle('show');
+        }
+
+        function openSchoolModal(school) {
+            logActivityToFirestore(currentUser, 'has viewed ' + (school.schoolname || 'a school') + ' School Information');
+            currentSchool = school;
+
+            const name = school.schoolname || 'Unknown School';
+            const abbrev = school.schoolabbrev || '';
+            const description = school.description || '';
+            const president = school.schoolpres || '';
+            const address = school.address || '';
+            const email = school.email_add || '';
+            const contact = school.contact_number || '';
+            const landline = school.landline || '';
+            const teaching = school.teaching_staff !== undefined ? school.teaching_staff : null;
+            const nonTeaching = school.nonteachingstaff !== undefined ? school.nonteachingstaff : null;
+
+            document.getElementById('schoolModalName').textContent = name;
+            document.getElementById('schoolModalSubtitle').textContent = abbrev;
+
+            const descBox = document.getElementById('schoolModalDescription');
+            if (description) {
+                descBox.textContent = description;
+                descBox.style.display = 'block';
+            } else {
+                descBox.style.display = 'none';
+            }
+
+            function setInfoItem(itemId, valueId, value) {
+                const item = document.getElementById(itemId);
+                const val = document.getElementById(valueId);
+                if (value) {
+                    val.textContent = value;
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            }
+
+            setInfoItem('schoolModalPresident', 'schoolModalPresidentValue', president);
+            setInfoItem('schoolModalAddress', 'schoolModalAddressValue', address);
+            setInfoItem('schoolModalEmail', 'schoolModalEmailValue', email);
+            setInfoItem('schoolModalContact', 'schoolModalContactValue', contact);
+            setInfoItem('schoolModalLandline', 'schoolModalLandlineValue', landline);
+
+            const statsGrid = document.getElementById('schoolModalStatsGrid');
+            if (teaching !== null || nonTeaching !== null) {
+                document.getElementById('schoolModalTeaching').textContent = teaching !== null ? teaching : '—';
+                document.getElementById('schoolModalNonTeaching').textContent = nonTeaching !== null ? nonTeaching : '—';
+                statsGrid.style.display = 'grid';
+            } else {
+                statsGrid.style.display = 'none';
+            }
+
+            const accessSection = document.getElementById('schoolAccessSection');
+            if (accessSection) accessSection.style.display = currentUser ? 'none' : 'block';
+
+            document.getElementById('schoolDetailModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function openSchoolLoginModal() {
+            if (!currentSchool) return;
+            const schoolName = currentSchool.schoolname || 'School';
+            document.getElementById('schoolLoginTitle').textContent = `Access ${schoolName} Portal`;
+            document.getElementById('schoolLoginSubtitle').textContent = `Enter your credentials to access the administrative portal for ${schoolName}`;
+            document.getElementById('schoolUsername').value = '';
+            document.getElementById('schoolPassword').value = '';
+            document.getElementById('schoolLoginModal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSchoolLoginModal() {
+            document.getElementById('schoolLoginModal').classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        async function handleSchoolLogin(event) {
+            event.preventDefault();
+            if (!currentSchool) { showToast('No school selected', 'error'); return; }
+
+            const username = document.getElementById('schoolUsername').value.trim();
+            const password = document.getElementById('schoolPassword').value;
+            const submitBtn = document.getElementById('schoolLoginSubmitBtn');
+
+            if (!username || !password) { showToast('Please enter both username and password', 'error'); return; }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<div class="loading-spinner"></div> Authenticating...';
+
+            try {
+                const schoolsRef = window.firebaseCollection(window.firebaseDB, 'ListofSchool');
+                const usernameQuery = window.firebaseQuery(schoolsRef, window.firebaseWhere('username', '==', username));
+                const querySnapshot = await window.firebaseGetDocs(usernameQuery);
+
+                if (querySnapshot.empty) {
+                    showToast('ACCOUNT NOT FOUND', 'error');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Access Portal';
+                    return;
+                }
+
+                let schoolDoc = null;
+                querySnapshot.forEach(d => { schoolDoc = { id: d.id, ...d.data() }; });
+
+                if (schoolDoc && schoolDoc.password === password) {
+                    const schoolName = schoolDoc.schoolname || 'School';
+                    localStorage.setItem('schoolLoginData', JSON.stringify({
+                        username: username,
+                        schoolName: schoolName,
+                        schoolData: schoolDoc,
+                        loginTime: new Date().toISOString()
+                    }));
+                    showToast('Access Granted! Redirecting to school portal...');
+                    logActivityToFirestore(currentUser, `has accessed ${schoolName} portal with username: ${username}`);
+                    document.getElementById('schoolUsername').value = '';
+                    document.getElementById('schoolPassword').value = '';
+                    closeSchoolLoginModal();
+                    closeModal('schoolDetailModal');
+                    setTimeout(() => { window.location.href = 'school.html'; }, 1200);
+                } else {
+                    showToast('INCORRECT PASSWORD', 'error');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Access Portal';
+                }
+            } catch (error) {
+                console.error('School login error:', error);
+                showToast('Login failed. Please try again.', 'error');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Access Portal';
+            }
+        }
+
+        function initializeEventListeners() {
+            const usernameInput = document.getElementById('schoolUsername');
+            const passwordInput = document.getElementById('schoolPassword');
+            if (usernameInput) {
+                usernameInput.addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') passwordInput.focus();
+                });
+            }
+            if (passwordInput) {
+                passwordInput.addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        const form = document.querySelector('.school-login-form');
+                        if (form) form.dispatchEvent(new Event('submit'));
+                    }
+                });
+            }
+
+            const scrollElements = document.querySelectorAll('.scroll-animate');
+            const scrollObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('in-view');
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+            scrollElements.forEach(el => scrollObserver.observe(el));
+
+            document.querySelectorAll('.nav-menu a, .mobile-menu a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = href.substring(1);
+                        if (targetId === 'home') {
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        } else if (targetId === 'schools') {
+                            const sec = document.getElementById('schools');
+                            if (sec) sec.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                });
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    const schoolLoginModal = document.getElementById('schoolLoginModal');
+                    if (schoolLoginModal && schoolLoginModal.classList.contains('show')) {
+                        closeSchoolLoginModal(); return;
+                    }
+                    const activeModal = document.querySelector('.modal[style*="block"]');
+                    if (activeModal) {
+                        activeModal.style.display = 'none';
+                        document.body.style.overflow = 'auto'; return;
+                    }
+                    const loginModal = document.getElementById('loginModal');
+                    if (loginModal && !loginModal.classList.contains('hidden')) closeLoginModal();
+                }
+            });
+
+            document.addEventListener('click', function (event) {
+                const userDropdown = document.getElementById('userDropdown');
+                const userDropdownContent = document.getElementById('userDropdownContent');
+                if (userDropdown && !userDropdown.contains(event.target)) userDropdownContent.classList.remove('show');
+
+                const mobileUserDropdown = document.getElementById('mobileUserDropdown');
+                const mobileUserDropdownContent = document.getElementById('mobileUserDropdownContent');
+                if (mobileUserDropdown && !mobileUserDropdown.contains(event.target)) mobileUserDropdownContent.classList.remove('show');
+
+                if (!event.target.matches('.filter-btn') && !event.target.closest('.filter-btn')) {
+                    const dropdowns = document.getElementsByClassName('filter-dropdown-content');
+                    for (let i = 0; i < dropdowns.length; i++) dropdowns[i].classList.remove('show');
+                }
+            });
+        }
+
+        async function authenticateUser(username, password) {
+            try {
+                if (!window.firebaseDB) throw new Error('Firebase not initialized');
+                const superAdminRef = window.firebaseCollection(window.firebaseDB, 'SuperAdminAccount');
+                const q = window.firebaseQuery(superAdminRef, window.firebaseWhere('username', '==', username));
+                const querySnapshot = await window.firebaseGetDocs(q);
+                if (querySnapshot.empty) return { success: false, error: 'ACCOUNT_NOT_FOUND' };
+                let userDoc = null;
+                querySnapshot.forEach(d => { userDoc = { id: d.id, ...d.data() }; });
+                if (userDoc.password === password) return { success: true, user: userDoc };
+                return { success: false, error: 'WRONG_PASSWORD' };
+            } catch (error) {
+                console.error('Authentication error:', error);
+                return { success: false, error: 'SYSTEM_ERROR', details: error.message };
+            }
+        }
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const submitBtn = document.getElementById('loginSubmitBtn');
+
+            if (!username || !password) { showToast('Please fill in all fields', 'error'); return; }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<div class="loading-spinner"></div> Authenticating...';
+
+            try {
+                const result = await authenticateUser(username, password);
+                if (result.success) {
+                    currentUser = result.user;
+                    localStorage.setItem('utownUser', JSON.stringify(currentUser));
+                    logActivityToFirestore(currentUser);
+                    const displayName = currentUser.fname ? currentUser.fname : username;
+                    showToast(`Login successful! Welcome back, ${displayName}`);
+                    updateUIForLoggedInUser(currentUser);
+                    closeLoginModal();
+                    document.getElementById('username').value = '';
+                    document.getElementById('password').value = '';
+                } else {
+                    switch (result.error) {
+                        case 'ACCOUNT_NOT_FOUND': showToast('ACCOUNT NOT FOUND', 'error'); break;
+                        case 'WRONG_PASSWORD': showToast('INCORRECT PASSWORD', 'error'); break;
+                        default: showToast('Login failed. Please try again.', 'error'); console.error('Login error:', result.details);
+                    }
+                    document.getElementById('password').value = '';
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showToast('System error. Please try again later.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+            }
+        }
+
+        function updateUIForLoggedInUser(user) {
+            document.querySelectorAll('#signInButton, #mobileSignInButton').forEach(btn => btn.classList.add('hidden'));
+            document.querySelectorAll('#userDropdown, #mobileUserDropdown').forEach(d => d.classList.remove('hidden'));
+            document.querySelectorAll('#userDropdownText, #mobileUserDropdownText').forEach(t => {
+                t.textContent = `Hello, ${user.fname ? user.fname : user.username}`;
+            });
+        }
+
+        function updateUIForLoggedOutUser() {
+            document.querySelectorAll('#signInButton, #mobileSignInButton').forEach(btn => btn.classList.remove('hidden'));
+            document.querySelectorAll('#userDropdown, #mobileUserDropdown').forEach(d => d.classList.add('hidden'));
+            document.querySelectorAll('#userDropdownContent, #mobileUserDropdownContent').forEach(c => c.classList.remove('show'));
+        }
+
+        function toggleUserDropdown() {
+            document.getElementById('userDropdownContent').classList.toggle('show');
+        }
+
+        function toggleMobileUserDropdown() {
+            document.getElementById('mobileUserDropdownContent').classList.toggle('show');
+        }
+
+        function handleDashboard() {
+            if (currentUser) logActivityToFirestore(currentUser, 'has accessed the Dashboard');
+            showToast('Redirecting to Dashboard...');
+            document.getElementById('userDropdownContent').classList.remove('show');
+            document.getElementById('mobileUserDropdownContent').classList.remove('show');
+            setTimeout(() => { window.location.href = 'superadmin.html'; }, 1000);
+        }
+
+        function handleSignOut() {
+            const userToLog = currentUser;
+            currentUser = null;
+            localStorage.removeItem('utownUser');
+            updateUIForLoggedOutUser();
+            if (userToLog) logActivityToFirestore(userToLog, 'has Logged Out');
+            showToast('You have been signed out successfully');
+        }
+
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+            const toast = document.createElement('div');
+            toast.className = `toast ${type === 'error' ? 'error' : ''}`;
+            const icon = type === 'error' ? 'fas fa-exclamation-circle' : 'fas fa-check-circle';
+            toast.innerHTML = `
+                <i class="toast-icon ${icon}"></i>
+                <span>${message}</span>
+                <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 100);
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.classList.remove('show');
+                    setTimeout(() => { if (toast.parentElement) toast.remove(); }, 300);
+                }
+            }, 5000);
+        }
+
+        function openAboutModal() {
+            logActivityToFirestore(currentUser, 'has opened About Us');
+            document.getElementById('aboutModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function openContactModal() {
+            logActivityToFirestore(currentUser, 'has opened Contact Us');
+            document.getElementById('contactModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleSignIn() {
+            const loginModal = document.getElementById('loginModal');
+            loginModal.classList.remove('hidden');
+            loginModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLoginModal() {
+            const loginModal = document.getElementById('loginModal');
+            loginModal.classList.add('hidden');
+            loginModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleForgotPassword() {
+            const accessCode = prompt('Please enter the access code:');
+            if (accessCode === null) return;
+            if (accessCode === 'superadmin') {
+                showToast("Password reset successful. Please check the Admin's Messenger for your new login credentials");
+            } else {
+                showToast('Invalid access code. Please try again.', 'error');
+            }
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+            document.querySelector('.mobile-menu-btn').classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').classList.remove('active');
+            document.querySelector('.mobile-menu-btn').classList.remove('active');
+        }
+
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            } else if (event.target.classList.contains('login-modal')) {
+                closeLoginModal();
+            } else if (event.target.classList.contains('school-login-modal')) {
+                closeSchoolLoginModal();
+            }
+        };
+
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('contactEmail').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            if (firstName && lastName && email && subject && message) {
+                showToast(`Thank you, ${firstName} ${lastName}! Your message has been sent successfully. We will get back to you soon.`);
+                closeModal('contactModal');
+                ['firstName','lastName','contactEmail','contactPhone','subject','message'].forEach(id => {
+                    document.getElementById(id).value = '';
+                });
+            }
+        }
+
+        document.documentElement.style.scrollBehavior = 'smooth';
+    </script>
+</body>
+</html>
